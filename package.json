@@ -1,5 +1,5 @@
 {
-  "name": "nw-svg-polyhedra",
+  "name": "Notched-Polyhedra",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "iso-paper-sizes": "^1.0.0",
     "nw": "^0.49.0",
     "paper-size": "^1.1.0",
-    "svg-units": "^1.0.0",
+    "svg-units": "^1.0.0"
   }
 }
