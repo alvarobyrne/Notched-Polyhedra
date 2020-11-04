@@ -40,6 +40,7 @@ let Polyhedron;
 Polyhedron = Dodecahedron;
 Polyhedron = Cuboctahedron;
 const sideLength = 70;//mm
+////////////////////////////////////////////////////////////
 const hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
 var folderHingesAmount = gui.addFolder('hinges amount');
 var folderMM = gui.addFolder('mm');

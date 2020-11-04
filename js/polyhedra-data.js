@@ -3,6 +3,7 @@ const Cuboctahedron = {
         {sides:3,amount:8},
         {sides:4,amount:6}
     ],
+    edges:20,
     dihedralAngles:[125.26],
     volume:(side)=>5/3*Math.SQRT2*side*side*side,
     radii:{inner:0.75,side:0.866603,outer:1}

@@ -23,7 +23,8 @@ class HingedPolyhedron {
             facesTypes = faceTypesR
         if(!dihedralAngles)
             dihedralAngles = anglesR
-        const hingesAmounts= [20];
+        const hingesAmounts= [Polyhedron.edges*2];
+        console.log('hingesAmounts: ', hingesAmounts);
         const facesSidesAmounts=facesTypes.map(element => {
             console.log('element: ', element);
             return element.sides;

@@ -19,7 +19,6 @@ class FacesManager {
             notchedFace.setForm(numberOfSides, sideLength);
             notchedFace.notchD=this.notchDistance;
             const amount = notchedFace.amount = faceType.amount;// no, no, no
-            console.log('amount: ', amount);
             return notchedFace
         });
     }
@@ -48,13 +47,11 @@ class FacesManager {
         const notchDMax = Math.max.apply(null, notchMinima);
         this.notchDMax = notchDMax;
         const notchDistance = this.notchDistance;
-        console.log('notchDistance: ', notchDistance);
         if(notchDistance>notchDMax||notchDistance<notchDMax){
             this.notchDistance = notchDMax
         }
         this.notchDistanceGUI.min(notchDMax);
         this.notchDistanceGUI.max(this.sideLength*0.5-gap*0.5);
-        console.log('notchDMax: ', notchDMax);
         this.notchDistanceGUI.updateDisplay();
         this.updateNotchDistance(this.notchDistance);
         /*
@@ -94,13 +91,11 @@ class FacesManager {
             notchedFace.setPosition(posX, r)
         })
         this.rMax=rMax;
-        console.log('rMax: ', rMax);
     }
     doClone() {
         const faces = this.faces;
         this.facesClones.innerHTML = ""
         let accumulatedY = 3*this.rMax;//a diameter
-        console.log('accumulatedY: ', accumulatedY);
         faces.forEach(face => {
             /*
             for (const key in face) {
@@ -123,7 +118,6 @@ class FacesManager {
            const bbox = this.facesClones.getBBox();
            const factor= 1.2;
            accumulatedY += bbox.height*factor;
-           console.log('accumulatedY: ', accumulatedY);
             facesClones.setAttribute('transform',`translate(${0},${accumulatedY})`)
             for (let index = 1; index < facesAmount; index++) {
                 const faceClone = face.singleFacesGroup.cloneNode(true);
