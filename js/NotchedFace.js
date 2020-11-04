@@ -1,5 +1,7 @@
 class NotchedFace{
     constructor(svg,sidesAmount,gui){
+        this.isDebugging = false;
+        this.isDebugging = true;
         this.facesDomContainer = document.createElement('div');
         document.body.appendChild(this.facesDomContainer);
         this.svgFaces = document.createElementNS("http://www.w3.org/2000/svg",'g');
@@ -11,6 +13,12 @@ class NotchedFace{
         this.facesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g');
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
+        if(this.isDebugging){
+            this.debugRect = document.createElementNS("http://www.w3.org/2000/svg",'rect');
+            this.debugRect.setAttribute('width',20)
+            this.debugRect.setAttribute('height',20)
+            this.facesGroup.appendChild(this.debugRect);
+        }
         this.sidesAmount = sidesAmount;
         // 
         this.sideLength = 300;
@@ -58,9 +66,15 @@ class NotchedFace{
         this.singleFacesGroup.innerHTML = ""
         const side = document.createElementNS("http://www.w3.org/2000/svg", 'path');
         const gr   = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        const circle   = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        const radius = this.faceRadius;
+        if(this.isDebugging){
+            const circle   = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+            this.singleFacesGroup.appendChild(circle);
+            circle.setAttribute("fill","none")
+            circle.setAttribute("stroke","black")
+            circle.setAttribute("r",radius)
+        }
         this.singleFacesGroup.appendChild(gr);
-        this.singleFacesGroup.appendChild(circle);
         gr.appendChild(side);
         // const l = to_mm(length);
         const notchD = this.notchD;//poorly created public variable
@@ -87,12 +101,8 @@ class NotchedFace{
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
         // const radius = 0.5*l / Math.sin(theta * degreePerRadian*0.5);
-        const radius = this.faceRadius;
         // circle.setAttribute("cx",0)
         // circle.setAttribute("cy",0)
-        circle.setAttribute("fill","none")
-        circle.setAttribute("stroke","black")
-        circle.setAttribute("r",radius)
         const outerAngleOffset = 90 + 0.5 * theta;
         for (let index = 1; index < sides; index++) {
             const angleDegree = theta * index;
