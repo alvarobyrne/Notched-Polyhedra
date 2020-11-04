@@ -68,7 +68,9 @@ var notchDMM = 3;
 
 const gui = new dat.GUI()
 gui.width = 300
-gui.add(this,'exportSVG');
+if(ISNW){
+    gui.add(this,'exportSVG');
+}
 gui.add(location,'reload');
 const folderDocs = gui.addFolder('docs');
 // folderDocs.open();
@@ -156,7 +158,6 @@ function notchPrecompute(){
     contrlrNotchD.updateDisplay();
 }
 // console.log('process: ', 
-const svgExportPath = 'tmp/dihedral.svg';
 // const tmpSVGPath = path.join(CWD, svgExportPath);
 function exportSVG() {
     // svg.appendChild(singleFacesGroup);
