@@ -71,12 +71,12 @@ gui.width = 300
 if(ISNW){
     gui.add(this,'exportSVG');
     gui.add(location,'reload');
+    const folderDocs = gui.addFolder('docs');
+    // folderDocs.open();
+    folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/dihedralAngle-hinge-formulae.svg'))}},'f').name('dihedralAngle-hinge-formulae.svg')
+    folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/notch-distance.svg'))}},'f').name('notch-distance.svg')
+    folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
 }
-const folderDocs = gui.addFolder('docs');
-// folderDocs.open();
-folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/dihedralAngle-hinge-formulae.svg'))}},'f').name('dihedralAngle-hinge-formulae.svg')
-folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/notch-distance.svg'))}},'f').name('notch-distance.svg')
-folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
 // console.log('shell: ', shell);
 // gui.add(this,'doHinge');
 // gui.add(this,'doCloneHinges');
