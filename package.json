@@ -13,7 +13,6 @@
   "dependencies": {
     "@5no/paper-sizes": "^1.0.2",
     "chokidar": "^3.4.2",
-    "dat.gui": "^0.7.7",
     "iso-paper-sizes": "^1.0.0",
     "nw": "^0.49.0",
     "paper-size": "^1.1.0",
