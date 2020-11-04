@@ -1,16 +1,16 @@
-const path = require('path');
-const CWD = process.cwd();
-const fs = require('fs');
-const svg_units = require('svg-units')
-console.log('svg_units: ', svg_units);
-let conversio_factors = svg_units.conversion_factors
-console.log('conversio_factors: ', conversio_factors);
-var unitsTest = svg_units.to_user_units.mm(10)
-var unitsMMTest = svg_units.from_user_units.mm(10)
-console.log('unitsMMTest: ', unitsMMTest);
-console.log('unitsTest: ', unitsTest);
+// const path = require('path');
+// const CWD = process.cwd();
+// const fs = require('fs');
+// const svg_units = require('svg-units')
+// console.log('svg_units: ', svg_units);
+// let conversio_factors = svg_units.conversion_factors
+// console.log('conversio_factors: ', conversio_factors);
+// var unitsTest = svg_units.to_user_units.mm(10)
+// var unitsMMTest = svg_units.from_user_units.mm(10)
+// console.log('unitsMMTest: ', unitsMMTest);
+// console.log('unitsTest: ', unitsTest);
 ////////////////////////////////////
-var shell = nw.Shell;
+// var shell = nw.Shell;
 const SVG_NS = "http://www.w3.org/2000/svg";
 var svg = document.createElementNS(SVG_NS,'svg');
 // var svgFaces = document.createElementNS(SVG_NS,'svg');
@@ -157,7 +157,7 @@ function notchPrecompute(){
 }
 // console.log('process: ', 
 const svgExportPath = 'tmp/dihedral.svg';
-const tmpSVGPath = path.join(CWD, svgExportPath);
+// const tmpSVGPath = path.join(CWD, svgExportPath);
 function exportSVG() {
     // svg.appendChild(singleFacesGroup);
     // svg.appendChild(facesGroup);

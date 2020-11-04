@@ -31,6 +31,7 @@
     
 </body>
 </html>
+<script src="nwjs/exporter.js"></script>
 <script src="libs/dat.gui.js"></script>
 <script src="js/Hinge.js"></script>
 <script src="js/HingesManager.js"></script>
@@ -39,10 +40,13 @@
 <script src="js/FacesManager.js"></script>
 <script src="index.js"></script>
 <script>
-    const chokidar = require('chokidar');
-    chokidar.watch([
-        'index.html'
-        ,'index.js'
-        ,'js/*'
+    if(ISNW){
+
+        const chokidar = require('chokidar');
+        chokidar.watch([
+            'index.html'
+            ,'index.js'
+            ,'js/*'
         ]).on('change',()=>{location.reload(); });
+    }
 </script>
