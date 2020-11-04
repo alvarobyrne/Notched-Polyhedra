@@ -1,5 +1,5 @@
 # Notched-Polyhedra
-Notched polyhedra
+Notched polyhedra: works both as a web page and as an [nwjs.io](https://nwjs.io/) desktop app.
 
 ![Side sketch](./docs/side.svg)
 
