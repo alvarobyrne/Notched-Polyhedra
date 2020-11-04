@@ -16,8 +16,10 @@
 <script src="../js/Hinge.js"></script>
 <script src="../js/HingesManager.js"></script>
 <script src="../libs/dat.gui.js"></script>
-<script src="../exporter.js"></script>
+<script src="../nwjs/exporter.js"></script>
 <script>
+if(ISNW){
+
 const paperSizes = require("paper-size");
 var sizes = require('iso-paper-sizes')
 console.log('sizes: ', sizes);
@@ -33,6 +35,7 @@ chokidar.watch([
     './pseudo-tests/hingesManager-test.html'
     ,'js/HingesManager.js'
 ]).on('change',()=>{location.reload(); });
+}
 console.log(Math.random())
 const SVG_NS = "http://www.w3.org/2000/svg";
 const svg = document.createElementNS(SVG_NS,'svg');
@@ -45,7 +48,9 @@ svg.setAttribute("height","11in")
 document.body.appendChild(svg)
 svg.style.border="1px solid red"
 const gui=new dat.GUI();
+if(ISNW){
 gui.add(this,'exportSVG');
+}
 gui.add({f:function(){
     history.back()
 }},"f").name("back")

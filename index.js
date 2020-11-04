@@ -159,6 +159,7 @@ function notchPrecompute(){
 }
 // console.log('process: ', 
 // const tmpSVGPath = path.join(CWD, svgExportPath);
+/*
 function exportSVG() {
     // svg.appendChild(singleFacesGroup);
     // svg.appendChild(facesGroup);
@@ -170,6 +171,7 @@ function exportSVG() {
     // svgFaces.appendChild(singleFacesGroup);
     // svgFaces.appendChild(facesGroup);
 }
+*/
 // doClone()
 // setTimeout(doClone,1000)
 // doHinge()
