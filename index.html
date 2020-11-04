@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .zoom-in{
+            zoom: 0.5;
+        }
+        .absolutely{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid red;
+            zoom: 0.5;
+            width: 200vw;
+            height: 200vh;
+
+        }
+        /* 
+        svg{
+            position: absolute;
+            top: 400px;
+            left: 400px;
+        }
+         */
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="libs/dat.gui.js"></script>
+<script src="js/Hinge.js"></script>
+<script src="js/HingesManager.js"></script>
+<script src="js/HingedPolyhedron.js"></script>
+<script src="js/NotchedFace.js"></script>
+<script src="js/FacesManager.js"></script>
+<script src="index.js"></script>
+<script>
+    const chokidar = require('chokidar');
+    chokidar.watch([
+        'index.html'
+        ,'index.js'
+        ,'js/*'
+        ]).on('change',()=>{location.reload(); });
+</script>

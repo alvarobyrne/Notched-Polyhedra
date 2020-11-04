@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hinges manager pseudo-test</title>
+    <style>
+        body{
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <p>hinges manager pseudo-test</p>
+</body>
+<script src="../js/Hinge.js"></script>
+<script src="../js/HingesManager.js"></script>
+<script src="../libs/dat.gui.js"></script>
+<script src="../exporter.js"></script>
+<script>
+const paperSizes = require("paper-size");
+var sizes = require('iso-paper-sizes')
+console.log('sizes: ', sizes);
+const paperA = sizes.A
+console.log('paperA: ', paperA);
+paperA.forEach((element,i) => {
+    // console.log('element: ',i, element);
+    
+});
+console.log('paperSizes: ', paperSizes);
+const chokidar = require("chokidar");
+chokidar.watch([
+    './pseudo-tests/hingesManager-test.html'
+    ,'js/HingesManager.js'
+]).on('change',()=>{location.reload(); });
+console.log(Math.random())
+const SVG_NS = "http://www.w3.org/2000/svg";
+const svg = document.createElementNS(SVG_NS,'svg');
+
+console.log('svg: ', svg);
+// svg.style.width="8.5in"
+// svg.style.height="11in"
+svg.setAttribute("width","8.5in")
+svg.setAttribute("height","11in")
+document.body.appendChild(svg)
+svg.style.border="1px solid red"
+const gui=new dat.GUI();
+gui.add(this,'exportSVG');
+gui.add({f:function(){
+    history.back()
+}},"f").name("back")
+const margin=10;
+const mmppx=1;
+// let h=0;
+// let gr= 0;
+// let cloneTx=null;
+// let cloneTy=null;
+// let cloneAmount=null;
+/*
+*/
+const dihedralAngles= [100];
+const facesTypes= ["4-3"];
+const hingesAmounts= [20];
+
+new HingesManager({svg,guiFolder:gui,dihedralAngles,facesTypes,hingesAmounts})
+gui.add({f:8.5},"f",5,20,0.01).name("svg width").onChange(function (params) {
+    console.log('params: ', params);
+    svg.setAttribute("width",params+"in")
+    
+})
+
+console.log('innerWidth: ', innerWidth);
+
+</script>
+</html>
