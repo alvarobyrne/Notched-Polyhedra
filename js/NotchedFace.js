@@ -2,13 +2,13 @@ class NotchedFace{
     constructor(svg,sidesAmount,gui){
         this.facesDomContainer = document.createElement('div');
         document.body.appendChild(this.facesDomContainer);
-        this.svgFaces = document.createElementNS(SVG_NS,'svg');
+        this.svgFaces = document.createElementNS("http://www.w3.org/2000/svg",'svg');
         this.svgFaces.classList.add('face')
         this.facesDomContainer.appendChild(this.svgFaces);
-        this.singleFacesGroup = document.createElementNS(SVG_NS,'g')
+        this.singleFacesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g')
         svg.appendChild(this.singleFacesGroup);
         svg.appendChild(this.svgFaces);
-        this.facesGroup = document.createElementNS(SVG_NS,'g');
+        this.facesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g');
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
         this.sidesAmount = sidesAmount;
@@ -56,9 +56,9 @@ class NotchedFace{
         const sides = this.sidesAmount;
         const length = this.sideLength;
         this.singleFacesGroup.innerHTML = ""
-        const side = document.createElementNS(SVG_NS, 'path');
-        const gr   = document.createElementNS(SVG_NS, 'g');
-        const circle   = document.createElementNS(SVG_NS, 'circle');
+        const side = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+        const gr   = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        const circle   = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
         this.singleFacesGroup.appendChild(gr);
         this.singleFacesGroup.appendChild(circle);
         gr.appendChild(side);

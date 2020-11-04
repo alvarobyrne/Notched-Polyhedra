@@ -6,7 +6,7 @@ class Hinge{
         gui.add(this,'dihedralDegree',0,150).name(`angle (${faceSidesAmount})`).onChange(doUpdate_);
         this.w=w;
         this.dist=dist;
-        this.original = document.createElementNS(SVG_NS,'g')
+        this.original = document.createElementNS("http://www.w3.org/2000/svg",'g')
         var original = this.original;
         const margin=10;
         this.margin=margin;
@@ -43,9 +43,9 @@ class Hinge{
         const h = g + 2 * d;
         const l = h / Math.tan(b)
         original.innerHTML = ""
-        var triangleHint = document.createElementNS(SVG_NS, 'path')
-        var piece = document.createElementNS(SVG_NS, 'path')
-        const gr = document.createElementNS(SVG_NS, 'g')
+        var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var piece = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
         original.appendChild(triangleHint)
         original.appendChild(gr);
         gr.appendChild(triangleHint);
