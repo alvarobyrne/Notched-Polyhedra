@@ -257,7 +257,3 @@ function doFace(sides,length) {
 */
 // editor.action.refactor
 // expandLineSelection
-window.addEventListener('keydown',function(ev){
-    if(ev.key==='F5'){location.reload()}
-    if(ev.ctrlKey&&ev.key==='s'){location.reload()}
-})
