@@ -1,7 +1,7 @@
 const Cuboctahedron = {
     facesTypes:[
-        {sides:3,amount:4},
-        {sides:4,amount:4}
+        {sides:3,amount:8},
+        {sides:4,amount:6}
     ],
     dihedralAngles:[125.26],
     volume:(side)=>5/3*Math.SQRT2*side*side*side,
