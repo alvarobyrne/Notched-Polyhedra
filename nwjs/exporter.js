@@ -7,15 +7,18 @@ if(ISNW){
     const svgExportPath = 'tmp/dihedral.svg';
     var tmpSVGPath = path.join(CWD, svgExportPath);
     var shell = nw.Shell;
-    function exportSVG() {
+    function pre_exportSVG() {
         // svg.appendChild(singleFacesGroup);
         // svg.appendChild(facesGroup);
         var outerHTML = svg.outerHTML
         
         fs.writeFileSync(svgExportPath,outerHTML,'utf8')
         
-        shell.openItem(tmpSVGPath);
         // svgFaces.appendChild(singleFacesGroup);
         // svgFaces.appendChild(facesGroup);
+    }
+    function exportSVG() {
+        pre_exportSVG();
+        shell.openItem(tmpSVGPath);
     }
 }
