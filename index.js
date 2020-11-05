@@ -11,12 +11,12 @@ document.body.appendChild(im2)
 const margin=10;
 var gapMM = 20;
 const mmppx=3.7796;
-const MMPPX=3.7796;
+// const MMPPX=3.7796;
 var h = -1;
 var faceRadius = -1;
 var gr;
-svg.setAttribute('width','900')
-svg.setAttribute('height','600')
+// svg.setAttribute('width','900')
+// svg.setAttribute('height','600')
 var r;
 var cloneTx = -1;
 var cloneTy = -1;
@@ -27,6 +27,9 @@ var sideLengthMM=70;
 var notchDMM = 3;
 
 const gui = new dat.GUI()
+gui.add(this,'setViewBox')
+gui.add(this,'unsetViewBox')
+gui.add(this,'setDimensions')
 gui.width = 300
 if(ISNW){
     gui.add(this,'exportSVG');
@@ -94,3 +97,48 @@ function to_px(value) {
     return value/mmppx
     return 3.7795*value
 }
+function setViewBox(params) {
+    const bbox = svg.getBBox();
+    console.log('bbox: ', bbox);
+    svg.setAttribute("viewBox",`0 0 ${bbox.width} ${bbox.height}`)
+}
+function setDimensions() {
+    const bbox = svg.getBBox();
+    const w = bbox.width + Math.abs(bbox.x);
+    const h = bbox.height + Math.abs(bbox.y);
+    svg.setAttribute("viewBox",`0 0 ${w} ${h}`)
+    svg.setAttribute("width",`${w}`)
+    svg.setAttribute("height", `${h}`)
+}
+function onResize(params) {
+    const proportions = innerWidth / innerHeight;
+    const isWider = proportions>1;
+    const bbox = svg.getBBox();
+    const tw = bbox.width + Math.abs(bbox.x);
+    const th = bbox.height + Math.abs(bbox.y);
+    const viewBoxString = `0 0 ${tw} ${th}`;
+    svg.setAttribute("viewBox",viewBoxString)
+    svg.removeAttribute("height")
+    const h = isWider? innerHeight:innerWidth;
+    svg.setAttribute("height", `${h}`)
+
+}
+function setDimensions3() {
+    const bbox = svg.getBBox();
+    const w = bbox.width + Math.abs(bbox.x);
+    const h = bbox.height + Math.abs(bbox.y);
+    svg.setAttribute("viewBox",`0 0 ${w} ${h}`)
+    svg.setAttribute("width",`${w}`)
+    svg.setAttribute("height", `${h}`)
+}
+function setDimensions2() {
+    const bbox = svg.getBBox();
+    svg.setAttribute("viewBox",`0 0 ${bbox.width} ${bbox.height}`)
+    svg.setAttribute("width",`${bbox.width}`)
+    svg.setAttribute("height", `${bbox.height}`)
+}
+function unsetViewBox(params) {
+    svg.removeAttribute("viewBox")
+}
+window.addEventListener('resize',onResize)
+onResize()
