@@ -1,7 +1,7 @@
 class NotchedFace{
     constructor(svg,sidesAmount,gui){
-        this.isDebugging = false;
         this.isDebugging = true;
+        this.isDebugging = false;
         this.facesDomContainer = document.createElement('div');
         document.body.appendChild(this.facesDomContainer);
         this.svgFaces = document.createElementNS("http://www.w3.org/2000/svg",'g');

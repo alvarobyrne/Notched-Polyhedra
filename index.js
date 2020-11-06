@@ -113,9 +113,10 @@ function setDimensions() {
 function onResize(params) {
     const proportions = innerWidth / innerHeight;
     const isWider = proportions>1;
-    const bbox = svg.getBBox();
-    const tw = bbox.width + Math.abs(bbox.x);
-    const th = bbox.height + Math.abs(bbox.y);
+    // const bbox = svg.getBBox();
+    // const tw = bbox.width + Math.abs(bbox.x);
+    // const th = bbox.height + Math.abs(bbox.y);
+    const {tw, th} = getSVGsize();
     const viewBoxString = `0 0 ${tw} ${th}`;
     svg.setAttribute("viewBox",viewBoxString)
     svg.removeAttribute("height")
@@ -142,3 +143,32 @@ function unsetViewBox(params) {
 }
 window.addEventListener('resize',onResize)
 onResize()
+function getSVGsize(params) {
+    const bbox = svg.getBBox();
+    const tw = bbox.width + Math.abs(bbox.x);
+    const th = bbox.height + Math.abs(bbox.y);
+    return {tw,th}    
+}
+const bin = document.createElementNS(SVG_NS, 'rect');
+const {tw, th} = getSVGsize();
+
+bin.setAttribute('width',tw)
+bin.setAttribute('height',th*0.75)
+bin.setAttribute('fill','none')
+bin.setAttribute('stroke','black')
+
+svg.appendChild(bin)
+
+console.log('SvgNest: ', SvgNest.style);
+SvgNest.setbin(bin)
+// SvgNest.start(progress, renderSvg);
+function progress(params) {
+    console.log('params: ', params);
+}
+function renderSvg(svglist, efficiency, placed, total){
+    console.log('efficiency: ', efficiency);
+    console.log('placed: ', placed);
+    console.log('total: ', total);
+    console.log('svglist: ', svglist);
+
+}
