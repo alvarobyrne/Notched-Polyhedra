@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notched-face pseudo-test</title>
+    <style>
+        svg{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+<body>
+</body>
+<script src="../libs/dat.gui.js"></script>
+<script src="../js/NotchedFace.js"></script>
+<script src="../nwjs/exporter.js"></script>
+<script>
+if(ISNW){
+
+    const chokidar = require("chokidar");
+    chokidar.watch([
+        './pseudo-tests/notched-face-test.html'
+        ,'js/NotchedFace.js'
+    ]).on('change',()=>{location.reload(); });
+}
+console.log(Math.random())
+const SVG_NS = "http://www.w3.org/2000/svg";
+const svg = document.createElementNS(SVG_NS,'svg');
+svg.setAttribute("width",innerWidth)
+svg.setAttribute("height",innerHeight)
+console.log('svg: ', svg);
+document.body.appendChild(svg)
+svg.style.border="1px solid red"
+const gui=new dat.GUI();
+if(ISNW){
+    gui.add(this,'exportSVG');
+}
+gui.add({f:function(){
+    history.back()
+}},"f").name("back")
+const sidesAmount=5;
+const sideLength=200;
+const notchedFace = new NotchedFace(svg,sidesAmount,gui);
+notchedFace.setForm(sidesAmount,sideLength)
+notchedFace.setNotch(5)
+notchedFace.update(20,5)
+
+</script>
+</html>
