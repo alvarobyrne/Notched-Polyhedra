@@ -8,9 +8,11 @@ class NotchedFace{
         this.svgFaces.classList.add('face')
         this.facesDomContainer.appendChild(this.svgFaces);
         this.singleFacesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g')
+        this.singleFacesGroup.classList.add("single")
         svg.appendChild(this.singleFacesGroup);
         svg.appendChild(this.svgFaces);
         this.facesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g');
+        this.facesGroup.classList.add("group")
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
         if(this.isDebugging){
@@ -65,6 +67,7 @@ class NotchedFace{
         const length = this.sideLength;
         this.singleFacesGroup.innerHTML = ""
         const side = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+        const tide = document.createElementNS("http://www.w3.org/2000/svg", 'path');
         const gr   = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         const radius = this.faceRadius;
         if(this.isDebugging){
@@ -95,8 +98,9 @@ class NotchedFace{
         // const depth   = to_mm(s);
         const depth   = s;
         side.setAttribute('stroke','black')
-        side.setAttribute('fill','none')
-        side.setAttribute('d',`M 0 0 h ${h00} v ${depth} h ${g} v ${-depth} h ${midDist} v ${depth} h ${g} v ${-depth} h ${endDist}`);
+        side.setAttribute('fill','none');
+        const dString = `M 0 0 h ${h00} v ${depth} h ${g} v ${-depth} h ${midDist} v ${depth} h ${g} v ${-depth} h ${endDist}`;
+        side.setAttribute('d',dString);
         // const theta = 360 / sides;
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
