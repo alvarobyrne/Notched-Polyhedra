@@ -41,21 +41,55 @@ class Hinge{
         // const d = this.dist * mmppx;
         const d = this.dist;
         const h = g + 2 * d;
-        const l = h / Math.tan(b)
+        const l = h / Math.tan(b)//see what & why in ../docs/dihedralAngle-hinge-formulae.svg
         original.innerHTML = ""
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         var piece = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var mirrorPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var rotatedPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
         original.appendChild(triangleHint)
         original.appendChild(gr);
         gr.appendChild(triangleHint);
         gr.appendChild(piece);
+        gr.appendChild(pieceFullPath);
+        if(false){
+            gr.appendChild(mirrorPath);
+            gr.appendChild(rotatedPath);
+        }
         gr.setAttribute('transform', `translate(${r},0)`)
         triangleHint.setAttribute('d', `M 0 0 h ${l} v ${h} z`);
         piece.setAttribute('d', `M 0 0 h ${width} v ${d} h ${-depth} v${g} h ${depth} v ${d} h ${-(width - l)}`);
+        let points = [
+            [0, 0], 
+            [width, 0],
+            [width,d],
+            [width-depth,d],
+            [width-depth,d+g],
+            [width,d+g],
+            [width,2*d+g],
+            [l,2*d+g]
+        ];
+        let mirroredPoints = points
+            .map(point=>[point[0],-point[1]])
+        mirroredPoints.pop();
+        mirroredPoints.reverse();
+        let rotatedPoints = mirroredPoints
+            .map(point => this.rotate2D(point, -dihedralDegree) );
+        points =[...points,...rotatedPoints]
+        const dString = this.arrayToPath(points);
+        const mString = this.arrayToPath(mirroredPoints);
+        const rString = this.arrayToPath(rotatedPoints);
+        rotatedPoints = rotatedPoints.join(" ")
+        pieceFullPath.setAttribute('d', dString);
+        mirrorPath.setAttribute('d', mString);
+        rotatedPath.setAttribute('d', rString);
         triangleHint.setAttribute('stroke-width', '0.5')
-        triangleHint.setAttribute('fill', 'none')
+        pieceFullPath.setAttribute('fill', 'none')
+        rotatedPath.setAttribute('fill', 'red')
         triangleHint.setAttribute('stroke', 'black')
+        pieceFullPath.setAttribute('stroke', 'black')
         piece.setAttribute('stroke-width', '0.5')
         piece.setAttribute('fill', 'none')
         piece.setAttribute('stroke', 'black')
@@ -90,5 +124,27 @@ class Hinge{
             const y = v*(cloneTy+margin)+margin;
             qiece.setAttribute("transform",`translate(${x},${y})`)
         }
+    }
+
+    rotate2D(vector, angle){
+        var theta = angle * Math.PI / 180; // radians
+        var matrix = [  
+            Math.cos(theta),  Math.sin(theta), 
+            -Math.sin(theta), Math.cos(theta)
+        ];
+        return [ 
+            matrix[0] * vector[0] + matrix[1] * vector[1], 
+            matrix[2] * vector[0] + matrix[3] * vector[1]
+        ]
+    }
+
+    arrayToPath(points){
+        const dString = ["M "+points[0][0]+" "+points[0][1]];
+        for (let index = 1; index < points.length; index++) {
+            const point = points[index];
+            const pointString = "L " + point[0] + " " + point[1];
+            dString.push(pointString)
+        }
+        return dString.join(" ")
     }
 }
