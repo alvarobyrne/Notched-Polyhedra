@@ -64,10 +64,8 @@ class NotchedFace{
     }
     update(s,gap) {
         const sides = this.sidesAmount;
-        const length = this.sideLength;
         this.singleFacesGroup.innerHTML = ""
-        const side = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-        const tide = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+        const facePath = document.createElementNS("http://www.w3.org/2000/svg", 'path');
         const gr   = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         const radius = this.faceRadius;
         if(this.isDebugging){
@@ -78,8 +76,7 @@ class NotchedFace{
             circle.setAttribute("r",radius)
         }
         this.singleFacesGroup.appendChild(gr);
-        gr.appendChild(side);
-        gr.appendChild(tide);
+        gr.appendChild(facePath);
         // const l = to_mm(length);
         const notchD = this.notchD;//poorly created public variable
         const l = this.sideLength;
@@ -98,10 +95,9 @@ class NotchedFace{
         const endDist = l   - h11;
         // const depth   = to_mm(s);
         const depth   = s;
-        side.setAttribute('stroke','black')
-        tide.setAttribute('stroke','red')
-        tide.setAttribute('stroke-width',4)
-        tide.setAttribute('fill','none');
+        facePath.setAttribute('stroke','red')
+        facePath.setAttribute('stroke-width',1)
+        facePath.setAttribute('fill','none');
         let modelPoints = [
             [0,0],
             [h00,0],
@@ -114,53 +110,24 @@ class NotchedFace{
             [h11,0],
             [l,0]
         ]
-        side.setAttribute('fill','none');
-        const dString = `M 0 0 h ${h00} v ${depth} h ${g} v ${-depth} h ${midDist} v ${depth} h ${g} v ${-depth} h ${endDist}`;
-        side.setAttribute('d',dString);
-        // const theta = 360 / sides;
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
-        let outerAngleOffset2 = 90 + 0.5 * theta;
-        outerAngleOffset2 = 90
-        let allPoints = []
-        for (let index = 0; index < sides; index++) {
-            const angleDegree = theta * index + outerAngleOffset2;
-            const angle       = angleDegree * degreePerRadian;
-            const x           = Math.cos(angle) * radius;
-            const y           = Math.sin(angle) * radius;
-            let clonePoints;
-            if(true){
-
-                clonePoints = modelPoints
-                    .map(point => [point[0]+x,point[1]+y])
-                    .map(point => HingedPolyhedron.rotate2D(point,angleDegree))
-            }else{
-                clonePoints = modelPoints.map(point => [point[0]+x,point[1]+y]);
-                // clonePoints = clonePoints.map(point => HingedPolyhedron.rotate2D(point,angleDegree));
-    
-            }
-            // clonePoints.shift()
-            allPoints = [...allPoints,...clonePoints]
-        }
-        console.log('aaa: ', allPoints);
-        const sidePathString = HingedPolyhedron.arrayToPath(allPoints);
-        tide.setAttribute('d',sidePathString);
-        // const radius = 0.5*l / Math.sin(theta * degreePerRadian*0.5);
-        // circle.setAttribute("cx",0)
-        // circle.setAttribute("cy",0)
         const outerAngleOffset = 90 + 0.5 * theta;
-        for (let index = 1; index < sides; index++) {
-            const angleDegree = theta * index;
-            const outerAngle  = angleDegree + outerAngleOffset;
+        let data = []
+        for (let index = 0; index < sides; index++) {
+            const angleDegree = theta * index //+ outerAngleOffset2;
             const angle       = angleDegree * degreePerRadian;
             const x           = Math.cos(angle) * radius;
             const y           = Math.sin(angle) * radius;
-            const sideN       = side.cloneNode();
-            gr.appendChild(sideN);
-            sideN.setAttribute('transform',`translate(${x},${y}) rotate(${outerAngle})`)
+            const clonePoints = modelPoints
+                .map(point => HingedPolyhedron.rotate2D(point,-angleDegree- outerAngleOffset))
+                .map(point => [point[0]+x,point[1]+y])
+            clonePoints.shift()
+            data = [...data,...clonePoints]
         }
-        side.setAttribute('transform',`translate(${radius},0) rotate(${outerAngleOffset})`)
-        // gr.setAttribute('transform',`translate(${radius},${radius})`)
+        this.data=data;
+        const sidePathString = HingedPolyhedron.arrayToPath(data)+" z";
+        facePath.setAttribute('d',sidePathString);
         return gr;
     }
     setNotch(value){

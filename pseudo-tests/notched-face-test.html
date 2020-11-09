@@ -43,6 +43,8 @@ if(ISNW){
 gui.add({f:function(){
     history.back()
 }},"f").name("back")
+var shell = nw.Shell;
+gui.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
 const sidesAmount=5;
 const sideLength=200;
 const notchedFace = new NotchedFace(svg,sidesAmount,gui);
