@@ -16,6 +16,7 @@
     <img src="../docs/dihedralAngle-hinge-formulae.svg" alt="side doc">
 </body>
 <script src="../libs/dat.gui.js"></script>
+<script src="../js/HingedPolyhedron.js"></script>
 <script src="../js/Hinge.js"></script>
 <script src="../nwjs/exporter.js"></script>
 <script>
@@ -40,12 +41,12 @@ if(ISNW){
 gui.add({f:function(){
     history.back()
 }},"f").name("back")
-const mmppx=1;
-let h=0;
-let gr= 0;
-let cloneTx=null;
-let cloneTy=null;
-let cloneAmount=null;
+// const mmppx=1;
+// let h=0;
+// let gr= 0;
+// let cloneTx=null;
+// let cloneTy=null;
+// let cloneAmount=null;
 new Hinge(svg,gui,100,4,122,12)
 
 
