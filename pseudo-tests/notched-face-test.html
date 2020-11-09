@@ -13,8 +13,10 @@
     </style>
 </head>
 <body>
+    <img src="../docs/side.svg" alt="notched side">
 </body>
 <script src="../libs/dat.gui.js"></script>
+<script src="../js/HingedPolyhedron.js"></script>
 <script src="../js/NotchedFace.js"></script>
 <script src="../nwjs/exporter.js"></script>
 <script>
@@ -45,8 +47,11 @@ const sidesAmount=5;
 const sideLength=200;
 const notchedFace = new NotchedFace(svg,sidesAmount,gui);
 notchedFace.setForm(sidesAmount,sideLength)
-notchedFace.setNotch(5)
-notchedFace.update(20,5)
+const notchDistance = 35;//distance of notch center to face vertices
+notchedFace.setNotch(notchDistance)
+const notchDepth=40;// notch dimension 1/size/depth
+const notchGap=10;// notch dimension2/width/ material width/ material calibre/ material gauge
+notchedFace.update(notchDepth,notchGap)
 notchedFace.svgFaces.setAttribute("transform","translate(200,200)")
 
 </script>

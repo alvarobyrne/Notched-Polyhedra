@@ -63,6 +63,9 @@ testsFolder.add({f:function () {
 testsFolder.add({f:function () {
     location.href = "pseudo-tests/hingesManager-test.html"
 }},"f").name("hingesManager-test.html")
+testsFolder.add({f:function () {
+    location.href = "pseudo-tests/notched-face-test.html"
+}},"f").name("notched-face-test.html")
 /////////////////////////////////////////
 const contrlrNotchD = folderMM.add(this, 'notchDMM', 0, 150).onChange(function (v) {
     const notchDPX = 3.7795*(notchDMM);

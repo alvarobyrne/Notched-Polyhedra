@@ -90,4 +90,24 @@ class HingedPolyhedron {
         this.gap= g;
         this.update();
     }
+    static arrayToPath(points){
+        const dString = ["M "+points[0][0]+" "+points[0][1]];
+        for (let index = 1; index < points.length; index++) {
+            const point = points[index];
+            const pointString = "L " + point[0] + " " + point[1];
+            dString.push(pointString)
+        }
+        return dString.join(" ")
+    }
+    static rotate2D(vector, angle){
+        var theta = angle * Math.PI / 180; // radians
+        var matrix = [  
+            Math.cos(theta),  Math.sin(theta), 
+            -Math.sin(theta), Math.cos(theta)
+        ];
+        return [ 
+            matrix[0] * vector[0] + matrix[1] * vector[1], 
+            matrix[2] * vector[0] + matrix[3] * vector[1]
+        ]
+    }
 }

@@ -15,7 +15,7 @@ class NotchedFace{
         this.facesGroup.classList.add("group")
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
-        if(this.isDebugging){
+        if(this.isDebugging&&false){
             this.debugRect = document.createElementNS("http://www.w3.org/2000/svg",'rect');
             this.debugRect.setAttribute('width',20)
             this.debugRect.setAttribute('height',20)
@@ -79,6 +79,7 @@ class NotchedFace{
         }
         this.singleFacesGroup.appendChild(gr);
         gr.appendChild(side);
+        gr.appendChild(tide);
         // const l = to_mm(length);
         const notchD = this.notchD;//poorly created public variable
         const l = this.sideLength;
@@ -98,12 +99,52 @@ class NotchedFace{
         // const depth   = to_mm(s);
         const depth   = s;
         side.setAttribute('stroke','black')
+        tide.setAttribute('stroke','red')
+        tide.setAttribute('stroke-width',4)
+        tide.setAttribute('fill','none');
+        let modelPoints = [
+            [0,0],
+            [h00,0],
+            [h00,depth],
+            [h01,depth],
+            [h01,0],
+            [h10,0],
+            [h10,depth],
+            [h11,depth],
+            [h11,0],
+            [l,0]
+        ]
         side.setAttribute('fill','none');
         const dString = `M 0 0 h ${h00} v ${depth} h ${g} v ${-depth} h ${midDist} v ${depth} h ${g} v ${-depth} h ${endDist}`;
         side.setAttribute('d',dString);
         // const theta = 360 / sides;
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
+        let outerAngleOffset2 = 90 + 0.5 * theta;
+        outerAngleOffset2 = 90
+        let allPoints = []
+        for (let index = 0; index < sides; index++) {
+            const angleDegree = theta * index + outerAngleOffset2;
+            const angle       = angleDegree * degreePerRadian;
+            const x           = Math.cos(angle) * radius;
+            const y           = Math.sin(angle) * radius;
+            let clonePoints;
+            if(true){
+
+                clonePoints = modelPoints
+                    .map(point => [point[0]+x,point[1]+y])
+                    .map(point => HingedPolyhedron.rotate2D(point,angleDegree))
+            }else{
+                clonePoints = modelPoints.map(point => [point[0]+x,point[1]+y]);
+                // clonePoints = clonePoints.map(point => HingedPolyhedron.rotate2D(point,angleDegree));
+    
+            }
+            // clonePoints.shift()
+            allPoints = [...allPoints,...clonePoints]
+        }
+        console.log('aaa: ', allPoints);
+        const sidePathString = HingedPolyhedron.arrayToPath(allPoints);
+        tide.setAttribute('d',sidePathString);
         // const radius = 0.5*l / Math.sin(theta * degreePerRadian*0.5);
         // circle.setAttribute("cx",0)
         // circle.setAttribute("cy",0)
