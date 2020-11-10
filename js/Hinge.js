@@ -41,29 +41,44 @@ class Hinge{
         // const d = this.dist * mmppx;
         const d = this.dist;
         const h = g + 2 * d;
-        const l = h / Math.tan(b)
+        const l = h / Math.tan(b)//see what & why in ../docs/dihedralAngle-hinge-formulae.svg
         original.innerHTML = ""
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
-        var piece = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
         original.appendChild(triangleHint)
         original.appendChild(gr);
         gr.appendChild(triangleHint);
-        gr.appendChild(piece);
+        gr.appendChild(pieceFullPath);
         gr.setAttribute('transform', `translate(${r},0)`)
         triangleHint.setAttribute('d', `M 0 0 h ${l} v ${h} z`);
-        piece.setAttribute('d', `M 0 0 h ${width} v ${d} h ${-depth} v${g} h ${depth} v ${d} h ${-(width - l)}`);
+        let points = [
+            [0, 0], 
+            [width, 0],
+            [width,d],
+            [width-depth,d],
+            [width-depth,d+g],
+            [width,d+g],
+            [width,2*d+g],
+            [l,2*d+g]
+        ];
+        let mirroredPoints = points
+            .map(point=>[point[0],-point[1]])
+        mirroredPoints.pop();
+        mirroredPoints.reverse();
+        let rotatedPoints = mirroredPoints
+            .map(point => HingedPolyhedron.rotate2D(point, -dihedralDegree) );
+        points =[...points,...rotatedPoints]
+        points.pop();
+        const dString = HingedPolyhedron.arrayToPath(points)+" Z";
+        rotatedPoints = rotatedPoints.join(" ")
+        pieceFullPath.setAttribute('d', dString);
         triangleHint.setAttribute('stroke-width', '0.5')
-        triangleHint.setAttribute('fill', 'none')
+        pieceFullPath.setAttribute('fill', 'none')
         triangleHint.setAttribute('stroke', 'black')
-        piece.setAttribute('stroke-width', '0.5')
-        piece.setAttribute('fill', 'none')
-        piece.setAttribute('stroke', 'black')
-        const qiece = piece.cloneNode();
-        gr.appendChild(qiece);
+        pieceFullPath.setAttribute('stroke', 'black')
         if(!isDebugging)
         triangleHint.remove()
-        qiece.setAttribute('transform', `scale(1,-1) rotate(${-dihedralDegree})`)
         var refelection = original.cloneNode(true);
         original.appendChild(refelection);
         const cloneTx = (2 * r + width + l);

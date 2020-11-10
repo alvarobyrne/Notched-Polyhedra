@@ -8,12 +8,14 @@ class NotchedFace{
         this.svgFaces.classList.add('face')
         this.facesDomContainer.appendChild(this.svgFaces);
         this.singleFacesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g')
+        this.singleFacesGroup.classList.add("single")
         svg.appendChild(this.singleFacesGroup);
         svg.appendChild(this.svgFaces);
         this.facesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g');
+        this.facesGroup.classList.add("group")
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
-        if(this.isDebugging){
+        if(this.isDebugging&&false){
             this.debugRect = document.createElementNS("http://www.w3.org/2000/svg",'rect');
             this.debugRect.setAttribute('width',20)
             this.debugRect.setAttribute('height',20)
@@ -62,9 +64,8 @@ class NotchedFace{
     }
     update(s,gap) {
         const sides = this.sidesAmount;
-        const length = this.sideLength;
         this.singleFacesGroup.innerHTML = ""
-        const side = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+        const facePath = document.createElementNS("http://www.w3.org/2000/svg", 'path');
         const gr   = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         const radius = this.faceRadius;
         if(this.isDebugging){
@@ -75,7 +76,7 @@ class NotchedFace{
             circle.setAttribute("r",radius)
         }
         this.singleFacesGroup.appendChild(gr);
-        gr.appendChild(side);
+        gr.appendChild(facePath);
         // const l = to_mm(length);
         const notchD = this.notchD;//poorly created public variable
         const l = this.sideLength;
@@ -94,28 +95,39 @@ class NotchedFace{
         const endDist = l   - h11;
         // const depth   = to_mm(s);
         const depth   = s;
-        side.setAttribute('stroke','black')
-        side.setAttribute('fill','none')
-        side.setAttribute('d',`M 0 0 h ${h00} v ${depth} h ${g} v ${-depth} h ${midDist} v ${depth} h ${g} v ${-depth} h ${endDist}`);
-        // const theta = 360 / sides;
+        facePath.setAttribute('stroke','red')
+        facePath.setAttribute('stroke-width',1)
+        facePath.setAttribute('fill','none');
+        let modelPoints = [
+            [0,0],
+            [h00,0],
+            [h00,depth],
+            [h01,depth],
+            [h01,0],
+            [h10,0],
+            [h10,depth],
+            [h11,depth],
+            [h11,0],
+            [l,0]
+        ]
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
-        // const radius = 0.5*l / Math.sin(theta * degreePerRadian*0.5);
-        // circle.setAttribute("cx",0)
-        // circle.setAttribute("cy",0)
         const outerAngleOffset = 90 + 0.5 * theta;
-        for (let index = 1; index < sides; index++) {
-            const angleDegree = theta * index;
-            const outerAngle  = angleDegree + outerAngleOffset;
+        let data = []
+        for (let index = 0; index < sides; index++) {
+            const angleDegree = theta * index //+ outerAngleOffset2;
             const angle       = angleDegree * degreePerRadian;
             const x           = Math.cos(angle) * radius;
             const y           = Math.sin(angle) * radius;
-            const sideN       = side.cloneNode();
-            gr.appendChild(sideN);
-            sideN.setAttribute('transform',`translate(${x},${y}) rotate(${outerAngle})`)
+            const clonePoints = modelPoints
+                .map(point => HingedPolyhedron.rotate2D(point,-angleDegree- outerAngleOffset))
+                .map(point => [point[0]+x,point[1]+y])
+            clonePoints.shift()
+            data = [...data,...clonePoints]
         }
-        side.setAttribute('transform',`translate(${radius},0) rotate(${outerAngleOffset})`)
-        // gr.setAttribute('transform',`translate(${radius},${radius})`)
+        this.data=data;
+        const sidePathString = HingedPolyhedron.arrayToPath(data)+" z";
+        facePath.setAttribute('d',sidePathString);
         return gr;
     }
     setNotch(value){

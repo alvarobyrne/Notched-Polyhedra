@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hinge pseudo-test</title>
+    <title>notched-face pseudo-test</title>
     <style>
         svg{
             position: absolute;
@@ -13,24 +13,26 @@
     </style>
 </head>
 <body>
-    <img src="../docs/dihedralAngle-hinge-formulae.svg" alt="side doc">
+    <img src="../docs/side.svg" alt="notched side">
 </body>
 <script src="../libs/dat.gui.js"></script>
 <script src="../js/HingedPolyhedron.js"></script>
-<script src="../js/Hinge.js"></script>
+<script src="../js/NotchedFace.js"></script>
 <script src="../nwjs/exporter.js"></script>
 <script>
 if(ISNW){
 
     const chokidar = require("chokidar");
     chokidar.watch([
-        './pseudo-tests/hinge-test.html'
-        ,'js/Hinge.js'
+        './pseudo-tests/notched-face-test.html'
+        ,'js/NotchedFace.js'
     ]).on('change',()=>{location.reload(); });
 }
 console.log(Math.random())
 const SVG_NS = "http://www.w3.org/2000/svg";
 const svg = document.createElementNS(SVG_NS,'svg');
+svg.setAttribute("width",innerWidth)
+svg.setAttribute("height",innerHeight)
 console.log('svg: ', svg);
 document.body.appendChild(svg)
 svg.style.border="1px solid red"
@@ -41,14 +43,18 @@ if(ISNW){
 gui.add({f:function(){
     history.back()
 }},"f").name("back")
-// const mmppx=1;
-// let h=0;
-// let gr= 0;
-// let cloneTx=null;
-// let cloneTy=null;
-// let cloneAmount=null;
-new Hinge(svg,gui,100,4,122,12)
-
+var shell = nw.Shell;
+gui.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
+const sidesAmount=5;
+const sideLength=200;
+const notchedFace = new NotchedFace(svg,sidesAmount,gui);
+notchedFace.setForm(sidesAmount,sideLength)
+const notchDistance = 35;//distance of notch center to face vertices
+notchedFace.setNotch(notchDistance)
+const notchDepth=40;// notch dimension 1/size/depth
+const notchGap=10;// notch dimension2/width/ material width/ material calibre/ material gauge
+notchedFace.update(notchDepth,notchGap)
+notchedFace.svgFaces.setAttribute("transform","translate(200,200)")
 
 </script>
 </html>
