@@ -12,7 +12,7 @@ class Hinge{
         this.margin=margin;
         original.setAttribute('transform',`translate(${margin},${margin})`)
         svg.appendChild(original);
-        this.update(20,20)
+        this.update(20,20);
     }
     update(s,gap){
         if(s)this.s=s;
@@ -45,12 +45,12 @@ class Hinge{
         original.innerHTML = ""
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
-        const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
+        // const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
         original.appendChild(triangleHint)
-        original.appendChild(gr);
-        gr.appendChild(triangleHint);
-        gr.appendChild(pieceFullPath);
-        gr.setAttribute('transform', `translate(${r},0)`)
+        // original.appendChild(gr);
+        original.appendChild(triangleHint);
+        original.appendChild(pieceFullPath);
+        // gr.setAttribute('transform', `translate(${r},0)`)
         triangleHint.setAttribute('d', `M 0 0 h ${l} v ${h} z`);
         let points = [
             [0, 0], 
@@ -70,7 +70,8 @@ class Hinge{
             .map(point => HingedPolyhedron.rotate2D(point, -dihedralDegree) );
         points =[...points,...rotatedPoints]
         points.pop();
-        const dString = HingedPolyhedron.arrayToPath(points)+" Z";
+        this.data = points;
+        const dString = HingedPolyhedron.arrayToPath(points);
         rotatedPoints = rotatedPoints.join(" ")
         pieceFullPath.setAttribute('d', dString);
         triangleHint.setAttribute('stroke-width', '0.5')
@@ -79,13 +80,21 @@ class Hinge{
         pieceFullPath.setAttribute('stroke', 'black')
         if(!isDebugging)
         triangleHint.remove()
-        var refelection = original.cloneNode(true);
+        var refelection = pieceFullPath.cloneNode(true);
         original.appendChild(refelection);
-        const cloneTx = (2 * r + width + l);
-        const cloneTy = h * 2 + 5
-        this.cloneTx = cloneTx;
+        let cloneTx;
+        cloneTx = 2 * r + width + l;
+        cloneTx = r
+        cloneTx = 0;
+        cloneTx = width + l + 5;
+        let cloneTy;
+        cloneTy = 0
+        cloneTy = h * 2 + 5;
+        this.cloneTx = 2 * r + width + l;
         this.cloneTy = cloneTy;
+        // refelection.setAttribute('transform', `rotate(180)`);
         refelection.setAttribute('transform', `rotate(180) translate(${-cloneTx},${-cloneTy})`);
+        // refelection.setAttribute('transform', `translate(${-cloneTx},${-cloneTy})`);
 
         // refelection.setAttribute('stroke',`red`);
         // refelection.setAttribute('transform','rotate(180)');

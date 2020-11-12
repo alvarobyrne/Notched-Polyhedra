@@ -1,6 +1,8 @@
 const SVG_NS = "http://www.w3.org/2000/svg";
 var svg = document.createElementNS(SVG_NS,'svg');
-svg.style.border = "1px solid red"
+svg.setAttribute('xmlns',SVG_NS)
+svg.setAttribute('id','svg')
+// svg.style.border = "1px solid red"
 document.body.appendChild(svg)
 const im1 = new Image();
 im1.src="docs/archimedean-solid-radii.png"
@@ -30,7 +32,7 @@ const gui = new dat.GUI()
 gui.add(this,'setViewBox')
 gui.add(this,'unsetViewBox')
 gui.add(this,'setDimensions')
-gui.width = 300
+gui.width = 350
 if(ISNW){
     gui.add(this,'exportSVG');
     gui.add(location,'reload');
@@ -47,7 +49,7 @@ const sideLength = 70;//mm
 const hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
 var folderHingesAmount = gui.addFolder('hinges amount');
 var folderMM = gui.addFolder('mm');
-folderMM.open();
+// folderMM.open();
 folderMM.add(this,'sideLengthMM',50,400,0.5).name("side length(mm)").onChange(updateSideLength);
 function updateSideLength(params) {
     const sideLengthPX = 3.7795*(sideLengthMM);
@@ -57,6 +59,7 @@ function updateSideLength(params) {
 folderHingesAmount.add(this,'columns',1,10,1).onChange(doUpdate);
 folderHingesAmount.add(this,'cloneAmount',0,40,1).onChange(doUpdate);
 const testsFolder = gui.addFolder("pseudo-tests");
+// testsFolder.open();
 testsFolder.add({f:function () {
     location.href = "pseudo-tests/hinge-test.html"
 }},"f").name("hinge-test.html")
@@ -155,6 +158,7 @@ function getSVGsize(params) {
 const bin = document.createElementNS(SVG_NS, 'rect');
 const {tw, th} = getSVGsize();
 
+bin.setAttribute('id','bin')
 bin.setAttribute('width',tw)
 bin.setAttribute('height',th*0.75)
 bin.setAttribute('fill','none')
@@ -162,16 +166,8 @@ bin.setAttribute('stroke','black')
 
 svg.appendChild(bin)
 
-console.log('SvgNest: ', SvgNest.style);
-SvgNest.setbin(bin)
-// SvgNest.start(progress, renderSvg);
-function progress(params) {
-    console.log('params: ', params);
+function setSvgNestClient(){
+    var bins = document.getElementById('bins');
+    new SvgNestClient(gui,bins);
 }
-function renderSvg(svglist, efficiency, placed, total){
-    console.log('efficiency: ', efficiency);
-    console.log('placed: ', placed);
-    console.log('total: ', total);
-    console.log('svglist: ', svglist);
-
-}
+setSvgNestClient()

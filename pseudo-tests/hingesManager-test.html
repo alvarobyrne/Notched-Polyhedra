@@ -13,6 +13,7 @@
 <body>
     <p>hinges manager pseudo-test</p>
 </body>
+<script src="../js/HingedPolyhedron.js"></script>
 <script src="../js/Hinge.js"></script>
 <script src="../js/HingesManager.js"></script>
 <script src="../libs/dat.gui.js"></script>
@@ -64,16 +65,19 @@ const mmppx=1;
 /*
 */
 const dihedralAngles= [100];
-const facesTypes= ["4-3"];
+const facesSidesAmounts= ["4-3"];
 const hingesAmounts= [20];
 
-new HingesManager({svg,guiFolder:gui,dihedralAngles,facesTypes,hingesAmounts})
+new HingesManager({svg,guiFolder:gui,dihedralAngles,facesSidesAmounts,hingesAmounts})
 gui.add({f:8.5},"f",5,20,0.01).name("svg width").onChange(function (params) {
     console.log('params: ', params);
     svg.setAttribute("width",params+"in")
     
 })
-
+function to_mm(value) {
+    return mmppx*value
+    return 3.7795*value
+}
 console.log('innerWidth: ', innerWidth);
 
 </script>

@@ -126,7 +126,7 @@ class NotchedFace{
             data = [...data,...clonePoints]
         }
         this.data=data;
-        const sidePathString = HingedPolyhedron.arrayToPath(data)+" z";
+        const sidePathString = HingedPolyhedron.arrayToPath(data);
         facePath.setAttribute('d',sidePathString);
         return gr;
     }

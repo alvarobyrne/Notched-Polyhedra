@@ -74,6 +74,7 @@ class HingedPolyhedron {
         const g = to_mm(this.gap);
         this.facesManager.update(s,g);
         this.hingesManager.update(s,g);
+        const accumulatedY = this.facesManager.accumulatedY;
     }
     setSideLength(v){
         console.log('v: ', v);
@@ -90,14 +91,23 @@ class HingedPolyhedron {
         this.gap= g;
         this.update();
     }
-    static arrayToPath(points){
-        const dString = ["M "+points[0][0]+" "+points[0][1]];
+    static arrayToPath(points,isClosed=true){
+        let dString = ["M "+points[0][0]+" "+points[0][1]];
         for (let index = 1; index < points.length; index++) {
             const point = points[index];
             const pointString = "L " + point[0] + " " + point[1];
             dString.push(pointString)
         }
-        return dString.join(" ")
+
+        if(isClosed) dString = dString.join(" ")+" Z";
+        return dString
+    }
+    static translate(vector, translation){
+        return [ 
+            translation[0] + vector[0],
+            translation[1] * vector[1]
+        ]
+
     }
     static rotate2D(vector, angle){
         var theta = angle * Math.PI / 180; // radians

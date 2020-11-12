@@ -128,7 +128,7 @@ class FacesManager {
                 const y=(faceRadius*2+margin)*v;
                 faceClone.setAttribute('transform',`translate(${x},${y})`)
             }
-                
+            this.accumulatedY= accumulatedY;    
         });
         /*
         facesGroup.innerHTML = ""
