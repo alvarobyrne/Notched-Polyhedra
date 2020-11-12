@@ -10,6 +10,7 @@ if(ISNW){
     function pre_exportSVG() {
         // svg.appendChild(singleFacesGroup);
         // svg.appendChild(facesGroup);
+        const svg = document.querySelector("#bins svg");
         svg.removeAttribute("width")
         svg.removeAttribute("height")
         var outerHTML = svg.outerHTML

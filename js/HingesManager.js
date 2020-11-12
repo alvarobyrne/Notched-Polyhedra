@@ -20,6 +20,7 @@ class HingesManager {
         folder.add(this, 'w', 5, 20).name("hinge size, (w)[mm]").onChange(this.updateSize.bind(this))
         folder.add(this, 'dist', 2.5, 10).onChange(this.updateSize.bind(this))
         this.clones = document.createElementNS("http://www.w3.org/2000/svg",'g')
+        this.clones.setAttribute('transform','translate(800,0)')
         svg.appendChild(this.clones);
         // this.update()
         // this.doCloneHinges()

@@ -10,7 +10,7 @@ class Hinge{
         var original = this.original;
         const margin=10;
         this.margin=margin;
-        original.setAttribute('transform',`translate(${margin},${margin})`)
+        original.setAttribute('transform',`translate(${margin},${500})`)
         svg.appendChild(original);
         this.update(20,20);
     }
