@@ -9,6 +9,7 @@ class HingesManager {
         this.columns = 4;
         folder.open()
         this.hinges = dihedralAngles.map((angle, i) => {
+            console.log('i: ', i);
             // console.log('angle: ', angle);
             const faceSidesAmount = facesSidesAmounts[i];
             // const hingesAmount = hingesAmounts[i];
@@ -63,20 +64,16 @@ class HingesManager {
         this.clones.innerHTML = ""
     }
     doCloneHinge(hinge, cloneAmount) {
-        // console.log('cloneAmount: ', cloneAmount);
         const margin = this.margin;
         const columns = this.columns;
         var actualAmount = cloneAmount / 2 | 0;
-        // console.log('actualAmount: ', actualAmount);
-        const cloneTx = hinge.cloneTx;
-        // console.log('cloneTx: ', cloneTx);
-        const cloneTy = hinge.cloneTy;
-        // console.log('cloneTy: ', cloneTy);
-        // const margin = 10;
-        // console.log('margin: ', margin);
-
+        const original = hinge.original;
+        const bbox = original.getBBox();
+        const cloneTx = bbox.width;
+        const cloneTy = bbox.height;
+        console.log('bbox: ', bbox);
         for (let index = 1; index < actualAmount; index++) {
-            const qiece = hinge.original.cloneNode(true);
+            const qiece = original.cloneNode(true);
             this.clones.appendChild(qiece);
             const u = index % columns
             const v = index / columns | 0;

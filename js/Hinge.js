@@ -6,9 +6,10 @@ class Hinge{
         gui.add(this,'dihedralDegree',0,150).name(`angle (${faceSidesAmount})`).onChange(doUpdate_);
         this.w=w;
         this.dist=dist;
+        this.air = 5;
         this.original = document.createElementNS("http://www.w3.org/2000/svg",'g')
         var original = this.original;
-        const margin=10;
+        const margin=100;
         this.margin=margin;
         original.setAttribute('transform',`translate(${margin},${500})`)
         svg.appendChild(original);
@@ -34,14 +35,21 @@ class Hinge{
         var width = this.w;
         // var depth = s * mmppx;
         var depth = s;
-        const r = width * Math.cos(c);
+        let r = width * Math.cos(c);
         const b = dihedral * 0.5;
         // const g = gap * mmppx;
         const g = gap;
         // const d = this.dist * mmppx;
         const d = this.dist;
         const h = g + 2 * d;
-        const l = h / Math.tan(b)//see what & why in ../docs/dihedralAngle-hinge-formulae.svg
+        const invTan = 1 / Math.tan(b);
+        const l = h * invTan;//see what & why in ../docs/dihedralAngle-hinge-formulae.svg
+        const h1 = g +  d;
+        const l1 = h1 * invTan;//see what & why in ../docs/dihedralAngle-hinge-formulae.svg
+        const t = this.air;
+        this.w = l1+ t+2*s;
+        width = this.w;
+        r = width * Math.cos(c);
         original.innerHTML = ""
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
@@ -90,8 +98,8 @@ class Hinge{
         let cloneTy;
         cloneTy = 0
         cloneTy = h * 2 + 5;
-        this.cloneTx = 2 * r + width + l;
-        this.cloneTy = cloneTy;
+        // this.cloneTx = 2 * r + width + l;
+        // this.cloneTy = cloneTy;
         // refelection.setAttribute('transform', `rotate(180)`);
         refelection.setAttribute('transform', `rotate(180) translate(${-cloneTx},${-cloneTy})`);
         // refelection.setAttribute('transform', `translate(${-cloneTx},${-cloneTy})`);
@@ -99,7 +107,7 @@ class Hinge{
         // refelection.setAttribute('stroke',`red`);
         // refelection.setAttribute('transform','rotate(180)');
     }
-
+    /*
     doCloneHinges(params) {
         const margin=this.margin;
 
@@ -115,4 +123,5 @@ class Hinge{
             qiece.setAttribute("transform",`translate(${x},${y})`)
         }
     }
+    */
 }
