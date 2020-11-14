@@ -8,10 +8,16 @@
         body{
             font-family: monospace;
         }
+        svg{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
     </style>
 </head>
 <body>
     <p>hinges manager pseudo-test</p>
+    <img src="../docs/dihedralAngle-hinge-formulae.svg" alt="side doc">
 </body>
 <script src="../js/HingedPolyhedron.js"></script>
 <script src="../js/Hinge.js"></script>
@@ -56,7 +62,7 @@ gui.add({f:function(){
     history.back()
 }},"f").name("back")
 const margin=10;
-const mmppx=1;
+const pxPerMM=3.7795;
 // let h=0;
 // let gr= 0;
 // let cloneTx=null;
@@ -68,17 +74,31 @@ const dihedralAngles= [100];
 const facesSidesAmounts= ["4-3"];
 const hingesAmounts= [20];
 
-new HingesManager({svg,guiFolder:gui,dihedralAngles,facesSidesAmounts,hingesAmounts})
-gui.add({f:8.5},"f",5,20,0.01).name("svg width").onChange(function (params) {
-    console.log('params: ', params);
-    svg.setAttribute("width",params+"in")
-    
-})
+const hingesManager = new HingesManager({svg,guiFolder:gui,dihedralAngles,facesSidesAmounts,hingesAmounts})
+hingesManager.clones.removeAttribute('transform')
+console.log('hingesManager: ', hingesManager);
+function toPixels(value) {
+    return pxPerMM*value
+}
 function to_mm(value) {
-    return mmppx*value
-    return 3.7795*value
+    return pxPerMM*value
 }
 console.log('innerWidth: ', innerWidth);
-
+var depthInMM = 6;
+var depth = toPixels(depthInMM)
+var calibreInMM = 3;
+var calibre = toPixels(calibreInMM);
+hingesManager.update(depth,calibre)
+hingesManager.hinges[0].original.setAttribute('transform','translate(10,10)')
+gui.add(this,'depthInMM',5,50,0.1).onChange(s=>{
+    depth = toPixels(depthInMM)
+    hingesManager.update(depth,calibre)
+    
+})
+gui.add(this,'calibreInMM',2.5,20,0.5).onChange(s=>{
+    calibre = toPixels(calibreInMM)
+    hingesManager.update(depth,calibre)
+    
+})
 </script>
 </html>
