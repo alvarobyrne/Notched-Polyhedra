@@ -1,7 +1,7 @@
 class FacesManager {
     constructor({svg, guiFolder, facesTypes, sideLength}) {
         const folder = guiFolder.addFolder("FacesManager");
-        // guiFolder.open();
+        folder.open();
         this.notchDistance = 20;//No go
         this.sideLength = sideLength;
         this.update_ = () => this.update();
@@ -27,13 +27,15 @@ class FacesManager {
      * @param {distance of center of notch to vertex} value 
      */
     updateNotchDistance(value){
+        console.log('value: ', value);
         const faces = this.faces;
         faces.forEach(notchedFace => {
             notchedFace.setNotch(value);
             notchedFace.update(this.depth,this.gap)
         });
+        this.update(this.depth,this.gap,false)
     }
-    update(depth,gap) {
+    update(depth,gap,isUpdating=true) {
         // console.trace()
         this.depth=depth;
         this.gap=gap;
@@ -53,7 +55,9 @@ class FacesManager {
         this.notchDistanceGUI.min(notchDMax);
         this.notchDistanceGUI.max(this.sideLength*0.5-gap*0.5);
         this.notchDistanceGUI.updateDisplay();
-        this.updateNotchDistance(this.notchDistance);
+        if(isUpdating){
+            this.updateNotchDistance(this.notchDistance);
+        }
         /*
         faces.forEach(notchedFace => {
             notchedFace.setNotch(notchDMax);

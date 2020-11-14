@@ -32,7 +32,7 @@ const gui = new dat.GUI()
 gui.add(this,'setViewBox')
 gui.add(this,'unsetViewBox')
 gui.add(this,'setDimensions')
-gui.width = 350
+gui.width = 435;
 if(ISNW){
     gui.add(this,'exportSVG');
     gui.add(location,'reload');
