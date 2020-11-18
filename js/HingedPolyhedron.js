@@ -14,18 +14,24 @@ class HingedPolyhedron {
         this.gap = 20//pixels;
         this.gap = 3//mm;
         const doUpdate_ = () => this.update()
-        const {facesTypes, dihedralAngles} = Polyhedron
+        const {facesTypes, edges} = Polyhedron;
+        console.log('edges: ', edges);
+        const dihedralAngles = {};
+        const hingesAmounts= {};
+        for (const key in edges) {
+            if (edges.hasOwnProperty(key)) {
+                const element = edges[key];
+                console.log('element: ', element);
+                dihedralAngles[key]=(element.dihedralAngle)
+                hingesAmounts[key]=(element.amount)
+            }
+        }
+        console.log('dihedralAngles: ', dihedralAngles);
         // guiFolder.add(this, 's', 0, sideLength*0.5).name("notch depth (s)").onChange(doUpdate_);
         guiFolder.add(this, 's', 0, 10).name("notch depth (s)[mm]").onChange(doUpdate_);
         // this.gapGUI = guiFolder.add(this, 'gap', 10, sideLength*0.5,10).name("mdf calibre (g)").onChange(doUpdate_);
         this.gapGUI = guiFolder.add(this, 'gap', 2.5, 9,0.5).name("mdf calibre (g)[mm]").onChange(doUpdate_);
         guiFolder.add(this, 'sideLength', 20, 500).name("side length").onChange(this.doUpdateSideLength.bind(this));
-        const { faceTypesR, anglesR } = this.randomize();
-        if(!facesTypes)
-            facesTypes = faceTypesR
-        if(!dihedralAngles)
-            dihedralAngles = anglesR
-        const hingesAmounts= Polyhedron.edges;
         // console.log('hingesAmounts: ', hingesAmounts);
         const facesSidesAmounts=facesTypes.map(element => {
             // console.log('element: ', element);
@@ -51,26 +57,6 @@ class HingedPolyhedron {
         facesManager.sideLength = sideLength;
         facesManager.updateLength()
         onResize()
-    }
-    randomize() {
-        const posibleFacesSides = [3, 4, 5, 6, 8, 10, 12];
-        const randomFacesAmount = 1 + 3 * Math.random() | 0;
-        // console.log('randomFacesAmount: ', randomFacesAmount);
-        const faceTypesR = [];
-        for (let index = 0; index < randomFacesAmount; index++) {
-            const randomFaceIndex = posibleFacesSides.length * Math.random() | 0;
-            const randomFaceSide = posibleFacesSides.splice(randomFaceIndex, 1)[0];
-            faceTypesR.push(randomFaceSide);
-        }
-        // console.log('faceTypes: ', faceTypes);
-        const anglesR = faceTypesR.map(faceSidesAmount => {
-
-            const randomAngle = Math.random() * Math.random() * 90 + 90;
-            // console.log('randomAngle: ', randomAngle);
-            return randomAngle;
-        });
-        // console.log('angles: ', angles);
-        return {  faceTypesR,  anglesR };
     }
     update() {
         this.guide.innerHTML=''

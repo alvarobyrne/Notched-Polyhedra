@@ -4,8 +4,7 @@ const Archimedean = {
             { sides: 3, amount: 8 },
             { sides: 4, amount: 6 }
         ],
-        edges: { "3-4": 20 },
-        dihedralAngles: { "3-4": 125.26 },
+        edges: { "3-4": {amount:20,dihedralAngle:125.26 }},
         volume: (side) => 5 / 3 * Math.SQRT2 * side * side * side,
         radii: { inner: 0.75, side: 0.866603, outer: 1 }
     },
@@ -15,12 +14,8 @@ const Archimedean = {
             { sides: 6, amount: 4 }
         ],
         edges: {
-            "3-6": 12,
-            "6-6": 6
-        },
-        dihedralAngles: {
-            "3-6": 109.4711,
-            "6-6": 70.52889
+            "3-6": {amount:12,dihedralAngle:109.4711},
+            "6-6": {amount:6,dihedralAngle:70.52889}
         }
     },
     TruncatedCube : {
@@ -29,12 +24,8 @@ const Archimedean = {
             { sides: 3, amount: 8 }
         ],
         edges: {
-            "3-8": 24,
-            "8-8": 12
-        },
-        dihedralAngles: {
-            "3-8": 125.2642,
-            "8-8": 90
+            "3-8": {amount:24,dihedralAngle:125.2642},
+            "8-8": {amount:12,dihedralAngle:90},
         }
     },
     TruncatedOctahedron : {
@@ -43,12 +34,8 @@ const Archimedean = {
             { sides: 6, amount: 8 }
         ],
         edges: {
-            "4-6": 24,
-            "6-6": 12
-        },
-        dihedralAngles: {
-            "4-6": 125.2642,
-            "6-6": 109.4711
+            "4-6": {amount:24,dihedralAngle:125.2642},
+            "6-6": {amount:12,dihedralAngle:109.4711}
         }
     },
     Rhombicuboctahedron : {
@@ -57,12 +44,8 @@ const Archimedean = {
             { sides: 3, amount: 8 }
         ],
         edges: {
-            "4-4": 24,
-            "3-4": 24
-        },
-        dihedralAngles: {
-            "4-4": 135,
-            "3-4": 144.74
+            "4-4": {amount:24,dihedralAngle: 135},
+            "3-4": {amount:24,dihedralAngle: 144.74}
         }
     },
     TruncatedCuboctahedron : {
@@ -72,14 +55,9 @@ const Archimedean = {
             { sides: 8, amount: 6 }
         ],
         edges: {
-            "4-6": 24,
-            "4-8": 24,
-            "6-8": 24
-        },
-        dihedralAngles: {
-            "4-6": 144.7355556,
-            "4-8": 135,
-            "6-8": 125.2641667
+            "4-6": {amount:24,dihedralAngle:144.7355556},
+            "4-8": {amount:24,dihedralAngle:135},
+            "6-8": {amount:24,dihedralAngle:125.2641667}
         }
     }
 }
