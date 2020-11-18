@@ -7,15 +7,17 @@ class FacesManager {
         this.update_ = () => this.update();
         const initMinSideLength = 10;
         const initMaxSideLength = 300;
+        this.facesMain = document.createElementNS("http://www.w3.org/2000/svg",'g');
         this.facesClones = document.createElementNS("http://www.w3.org/2000/svg",'g');
-        svg.appendChild(this.facesClones)
+        svg.appendChild(this.facesMain)
+        this.facesMain.appendChild(this.facesClones)
         // guiFolder.add(this, 'sideLength', initMinSideLength, initMaxSideLength,0.1).name('side length').onChange(this.updateLength.bind(this));
         const initMinNotchDistance = 0;
         const initMaxNotchDistance = initMaxSideLength/2;
         this.notchDistanceGUI = folder.add(this, 'notchDistance', initMinNotchDistance, initMaxNotchDistance, 0.1).onChange(this.updateNotchDistance.bind(this));
         this.faces = facesTypes.map(faceType => {
             const numberOfSides = faceType.sides;
-            const notchedFace = new NotchedFace(svg, numberOfSides, folder);
+            const notchedFace = new NotchedFace(this.facesMain, numberOfSides, folder);
             notchedFace.setForm(numberOfSides, sideLength);
             notchedFace.notchD=this.notchDistance;
             const amount = notchedFace.amount = faceType.amount;// no, no, no
@@ -27,7 +29,7 @@ class FacesManager {
      * @param {distance of center of notch to vertex} value 
      */
     updateNotchDistance(value){
-        console.log('value: ', value);
+        // console.log('value: ', value);
         const faces = this.faces;
         faces.forEach(notchedFace => {
             notchedFace.setNotch(value);
@@ -35,7 +37,10 @@ class FacesManager {
         });
         this.update(this.depth,this.gap,false)
     }
-    update(depth,gap,isUpdating=true) {
+    update(depth,gap,isUpdating=true,posy=0) {
+        if(posy>10){
+            this.facesMain.setAttribute('transform',`translate(0,${posy})`)
+        }
         // console.trace()
         this.depth=depth;
         this.gap=gap;
@@ -65,6 +70,7 @@ class FacesManager {
         });
         */
         this.removeOverlaps()
+        this.facesClones.setAttribute('transform',`translate(0,${this.rMax*2.5})`)
         this.doClone();
     }
     updateLength(){
@@ -97,9 +103,11 @@ class FacesManager {
         this.rMax=rMax;
     }
     doClone() {
+        // console.log("================================")
         const faces = this.faces;
         this.facesClones.innerHTML = ""
         let accumulatedY = 3*this.rMax;//a diameter
+        accumulatedY = 0;//a diameter
         faces.forEach(face => {
             /*
             for (const key in face) {
@@ -120,9 +128,10 @@ class FacesManager {
            const facesClones = document.createElementNS("http://www.w3.org/2000/svg",'g');
            this.facesClones.appendChild(facesClones);
            const bbox = this.facesClones.getBBox();
-           const factor= 1.2;
-           accumulatedY += bbox.height*factor;
-            facesClones.setAttribute('transform',`translate(${200},${accumulatedY})`)
+        //    console.log('bbox: >>>>>>>>>', bbox);
+           const factor= 1;
+           accumulatedY += bbox.height+Math.abs(bbox.y);
+            facesClones.setAttribute('transform',`translate(${0},${accumulatedY})`)
             for (let index = 1; index < facesAmount; index++) {
                 const faceClone = face.singleFacesGroup.cloneNode(true);
                 facesClones.appendChild(faceClone);

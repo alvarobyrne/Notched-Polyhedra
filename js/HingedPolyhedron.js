@@ -4,6 +4,8 @@
  */
 class HingedPolyhedron {
     constructor({svg, gui, sideLength, Polyhedron}) {
+        this.guide= document.createElementNS("http://www.w3.org/2000/svg",'g');
+        svg.appendChild(this.guide)
         this.sideLength = sideLength;
         const guiFolder = gui.addFolder("HingedPolyhedron");
         guiFolder.open();
@@ -23,10 +25,10 @@ class HingedPolyhedron {
             facesTypes = faceTypesR
         if(!dihedralAngles)
             dihedralAngles = anglesR
-        const hingesAmounts= [Polyhedron.edges*2];
-        console.log('hingesAmounts: ', hingesAmounts);
+        const hingesAmounts= Polyhedron.edges;
+        // console.log('hingesAmounts: ', hingesAmounts);
         const facesSidesAmounts=facesTypes.map(element => {
-            console.log('element: ', element);
+            // console.log('element: ', element);
             return element.sides;
             
         });
@@ -48,6 +50,7 @@ class HingedPolyhedron {
         // console.log('h00: ', h00);
         facesManager.sideLength = sideLength;
         facesManager.updateLength()
+        onResize()
     }
     randomize() {
         const posibleFacesSides = [3, 4, 5, 6, 8, 10, 12];
@@ -70,11 +73,20 @@ class HingedPolyhedron {
         return {  faceTypesR,  anglesR };
     }
     update() {
+        this.guide.innerHTML=''
         const s = to_mm(this.s);
         const g = to_mm(this.gap);
-        this.facesManager.update(s,g);
         this.hingesManager.update(s,g);
-        const accumulatedY = this.facesManager.accumulatedY;
+        const accumulatedHeight = this.hingesManager.accumulatedHeight;
+        const accumulatedY = this.hingesManager.clones.getBBox().height+this.hingesManager.clones.getBBox().y+20
+        this.facesManager.update(s,g,true,accumulatedY);
+        // const accumulatedY = this.facesManager.accumulatedY;
+        const line = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+        line.setAttribute('d',`M0,${accumulatedY}H100`);
+        line.setAttribute('stroke','black')
+        line.setAttribute('strokeWidth',2)
+        this.guide.appendChild(line)
+        onResize()
     }
     setSideLength(v){
         console.log('v: ', v);

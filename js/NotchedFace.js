@@ -8,11 +8,11 @@ class NotchedFace{
         this.svgFaces.classList.add('face')
         this.facesDomContainer.appendChild(this.svgFaces);
         this.singleFacesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g')
-        this.singleFacesGroup.classList.add("single")
+        this.singleFacesGroup.classList.add("single-face")
         svg.appendChild(this.singleFacesGroup);
         svg.appendChild(this.svgFaces);
         this.facesGroup = document.createElementNS("http://www.w3.org/2000/svg",'g');
-        this.facesGroup.classList.add("group")
+        this.facesGroup.classList.add("faces-group")
         this.svgFaces.appendChild(this.singleFacesGroup);
         this.svgFaces.appendChild(this.facesGroup);
         if(this.isDebugging&&false){
@@ -27,8 +27,8 @@ class NotchedFace{
         this.faceRadius = -1;
         this.facesAmount = 12;
         this.facesColumns = 4;
-        this.svgFaces.setAttribute('width','900');
-        this.svgFaces.setAttribute('height','600');
+        // this.svgFaces.setAttribute('width','900');
+        // this.svgFaces.setAttribute('height','600');
         this.folderFaceType = gui.addFolder('NotchedFace '+sidesAmount);
         // this.folderFaceType.open();
         this.doUpdate = ()=>{

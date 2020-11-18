@@ -51,8 +51,8 @@ const dihedralDegree=100;
 const faceSidesAmount=4;
 const w=122;
 const dist=12;
-new Hinge(svg,gui,dihedralDegree,faceSidesAmount,w,dist);
-
+const hinge = new Hinge(svg,gui,dihedralDegree,faceSidesAmount,w,dist);
+hinge.original.removeAttribute('transform')
 
 </script>
 </html>

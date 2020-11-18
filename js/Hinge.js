@@ -1,5 +1,5 @@
 class Hinge{
-    constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist){
+    constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist,posx){
         const dihedralDegree = dihedralDegree_;
         this.dihedralDegree = dihedralDegree;
         const doUpdate_ = () => this.update()
@@ -11,7 +11,7 @@ class Hinge{
         var original = this.original;
         const margin=100;
         this.margin=margin;
-        original.setAttribute('transform',`translate(${margin},${500})`)
+        original.setAttribute('transform',`translate(${margin+posx},${0})`)
         svg.appendChild(original);
         this.update(20,20);
     }

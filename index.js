@@ -44,6 +44,7 @@ if(ISNW){
 let Polyhedron;
 Polyhedron = Dodecahedron;
 Polyhedron = Cuboctahedron;
+Polyhedron = TruncatedTetrahedron;
 const sideLength = 70;//mm
 ////////////////////////////////////////////////////////////
 const hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
@@ -156,11 +157,15 @@ function getSVGsize(params) {
     return {tw,th}    
 }
 const bin = document.createElementNS(SVG_NS, 'rect');
-const {tw, th} = getSVGsize();
+let {tw, th} = getSVGsize();
+console.log('th: ', th);
+console.log('tw: ', tw);
+th = to_mm(302)
+tw = to_mm(402)
 
 bin.setAttribute('id','bin')
 bin.setAttribute('width',tw)
-bin.setAttribute('height',th*0.75)
+bin.setAttribute('height',th)
 bin.setAttribute('fill','none')
 bin.setAttribute('stroke','black')
 

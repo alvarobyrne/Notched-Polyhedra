@@ -7,7 +7,7 @@ class SvgNestClient{
         this.svglist    = null;
         this.params     = 0;
         const folder = gui.addFolder('svgnest');
-        folder.open();
+        // folder.open();
         folder.add(SvgNest,'stop')
         folder.add(this,'params',0,1,0.01).listen()
         folder.add(this,'efficiency',0,1,0.01).listen()
@@ -18,12 +18,14 @@ class SvgNestClient{
         folder.add(this,"binId")
         this.svgElementId="svg";
         folder.add(this,"svgElementId")
+        folder.add(this,"showInput")
         this.parsedSVG = null;
     }
     parsesvg(svgElementId){
         this.input  = document.querySelector('#' + svgElementId);
         const svgString = this.input.outerHTML;
-        this.parsedSVG = SvgNest.parsesvg(svgString);
+        const parsedSVG = this.parsedSVG = SvgNest.parsesvg(svgString);
+        console.log('parsedSVG: ', parsedSVG);
     }
     start(){
         this.parsesvg(this.svgElementId);
@@ -32,10 +34,12 @@ class SvgNestClient{
     }
     setBin(binId){
         const bin = this.parsedSVG.querySelector('#' + binId);
+        console.log('bin: ', bin);
         SvgNest.setbin(bin)
     }
     renderSvg(svglist, efficiency, placed, total){
         if(!svglist || svglist.length == 0){
+            console.log('returning')
             return;
         }
         this.set_efficiency( efficiency);
@@ -50,11 +54,12 @@ class SvgNestClient{
             }
             this.output.appendChild(svglist[i]);
         }
+        console.log("stopping")
         SvgNest.stop()
             
     }
     progress(params) {
-        console.log('params: ', params);
+        // console.log('params: ', params);
         this.params=params;
         // console.log('this: ', this);
     }
@@ -81,5 +86,14 @@ class SvgNestClient{
             }
             bins.appendChild(svglist[i]);
         }
+    }
+    showInput(){
+        this.input.style.display = "";
+        if(this.svglist)
+        this.svglist.forEach(element => {
+            element.remove();
+        });
+        this.svglist.length = 0;
+        this.svglist=null;
     }
 }
