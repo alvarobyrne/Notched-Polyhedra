@@ -43,9 +43,13 @@ if(ISNW){
 }
 let Polyhedron;
 Polyhedron = Dodecahedron;
-Polyhedron = Cuboctahedron;
-Polyhedron = TruncatedTetrahedron;
-const sideLength = 70;//mm
+Polyhedron = Archimedean.Cuboctahedron;
+Polyhedron = Archimedean.TruncatedTetrahedron;
+Polyhedron = Archimedean.TruncatedCube;
+Polyhedron = Archimedean.TruncatedOctahedron;
+Polyhedron = Archimedean.Rhombicuboctahedron;
+Polyhedron = Archimedean.TruncatedCuboctahedron;
+const sideLength = 40;//mm
 ////////////////////////////////////////////////////////////
 const hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
 var folderHingesAmount = gui.addFolder('hinges amount');

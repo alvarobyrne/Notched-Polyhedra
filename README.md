@@ -1,3 +1,5 @@
+In very beta state: just in production.
+
 # Notched-Polyhedra
 Notched polyhedra: works both as a web page and as an [nwjs.io](https://nwjs.io/) desktop app.
 
