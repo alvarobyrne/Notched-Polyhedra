@@ -68,28 +68,31 @@ class HingesManager {
     }
     doCloneHinges(params) {
         // console.trace();
-        let accumulatedH = 100;
+        let accumulatedH = 0;
+
+        const bbox = this.hinges[0].original.getBBox();
+        this.clones.setAttribute('transform',`translate(0,${bbox.height})`)
         this.hinges.forEach((element, i) => {
             // console.log('i: ', i);
             const type = this.edgesTypes[i];
             // console.log('type: ', type);
             // console.log('element: ', element);
-            const hingesAmount = this.hingesAmounts[type]
+            const hingesAmount = this.hingesAmounts[type]*2;
             // console.log('hingesAmount: ', hingesAmount);
             this.doCloneHinge(element,hingesAmount,accumulatedH);
             const bbox = this.clones.getBBox();
-            accumulatedH+=bbox.height+20;
+            accumulatedH=bbox.height;
             // console.log('accumulatedH: ', accumulatedH);
         });
     }
     doClearClones() {
         this.clones.innerHTML = ""
     }
-    doCloneHinge(hinge, cloneAmount) {
+    doCloneHinge(hinge, cloneAmount,accumulatedH) {
         const margin = this.margin;
         const columns = this.columns;
         var actualAmount = cloneAmount / 2 | 0;
-        // console.log('actualAmount: ', actualAmount);
+        console.log('actualAmount: ', actualAmount);
         const original = hinge.original;
         const bbox = original.getBBox();
         const cloneTx = bbox.width;
@@ -102,7 +105,7 @@ class HingesManager {
             // const x = u*(r+w+margin*0.5)+r+margin;
             const x = u * (cloneTx + margin) + margin;
             const y = v * (cloneTy + margin) + margin;
-            const accumulatedHeight = y + h + 10;
+            const accumulatedHeight = accumulatedH+y + h + 10;
             this.accumulatedHeight = accumulatedHeight; 
             qiece.setAttribute("transform", `translate(${x},${accumulatedHeight})`)
         }

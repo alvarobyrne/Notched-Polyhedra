@@ -85,7 +85,7 @@ class Hinge{
         triangleHint.setAttribute('stroke-width', '0.5')
         pieceFullPath.setAttribute('fill', 'none')
         triangleHint.setAttribute('stroke', 'black')
-        pieceFullPath.setAttribute('stroke', 'black')
+        pieceFullPath.setAttribute('stroke', 'red')
         if(!isDebugging)
         triangleHint.remove()
         var refelection = pieceFullPath.cloneNode(true);

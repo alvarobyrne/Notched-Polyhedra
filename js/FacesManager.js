@@ -130,7 +130,7 @@ class FacesManager {
            const bbox = this.facesClones.getBBox();
         //    console.log('bbox: >>>>>>>>>', bbox);
            const factor= 1;
-           accumulatedY += bbox.height+Math.abs(bbox.y);
+           accumulatedY = bbox.height+Math.abs(bbox.y);
             facesClones.setAttribute('transform',`translate(${0},${accumulatedY})`)
             for (let index = 1; index < facesAmount; index++) {
                 const faceClone = face.singleFacesGroup.cloneNode(true);

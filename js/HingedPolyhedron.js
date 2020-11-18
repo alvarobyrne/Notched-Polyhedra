@@ -56,7 +56,7 @@ class HingedPolyhedron {
         // console.log('h00: ', h00);
         facesManager.sideLength = sideLength;
         facesManager.updateLength()
-        onResize()
+        // onResize()
     }
     update() {
         this.guide.innerHTML=''
@@ -64,7 +64,11 @@ class HingedPolyhedron {
         const g = to_mm(this.gap);
         this.hingesManager.update(s,g);
         const accumulatedHeight = this.hingesManager.accumulatedHeight;
-        const accumulatedY = this.hingesManager.clones.getBBox().height+this.hingesManager.clones.getBBox().y+20
+        const bbox = this.hingesManager.clones.getBBox();
+        const bbox2 = this.hingesManager.hinges[0].original.getBBox();
+        const accumulated1 = bbox.height+Math.abs(bbox.y);
+        const accumulated2 = bbox2.height+Math.abs(bbox2.y);
+        const accumulatedY = accumulated1+accumulated2+20
         this.facesManager.update(s,g,true,accumulatedY);
         // const accumulatedY = this.facesManager.accumulatedY;
         const line = document.createElementNS("http://www.w3.org/2000/svg", 'path');
@@ -72,7 +76,7 @@ class HingedPolyhedron {
         line.setAttribute('stroke','black')
         line.setAttribute('strokeWidth',2)
         this.guide.appendChild(line)
-        onResize()
+        // onResize()
     }
     setSideLength(v){
         console.log('v: ', v);
