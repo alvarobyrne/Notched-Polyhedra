@@ -166,8 +166,8 @@ console.log('th: ', th);
 console.log('tw: ', tw);
 th = to_mm(302)
 th = to_mm(150)
-// tw = to_mm(402)
-// tw = to_mm(200)
+tw = to_mm(402)
+tw = to_mm(200)
 
 bin.setAttribute('id','bin')
 bin.setAttribute('width',tw)
@@ -187,8 +187,9 @@ setSvgNestClient()
 function onNested(params) {
     // console.log('params: ', params);
     
-    const files = pre_exportSVG();
-    console.log('files: ', files);
+    // const files = pre_exportSVG();
+    // console.log('files: ', files);
+    exportSVG()
     //["dihedral0.svg", "dihedral1.svg"]
 }
 //https://www.rapidtables.com/convert/number/degrees-minutes-seconds-to-degrees.html

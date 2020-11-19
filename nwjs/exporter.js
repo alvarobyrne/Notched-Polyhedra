@@ -12,6 +12,7 @@ if(ISNW){
     console.log('fileName: ', fileName);
     
     var svgExportPath = path.join(baseDirName, fileName);
+    console.log('svgExportPath: ', svgExportPath);
     var tmpSVGPath = path.join(CWD, svgExportPath);
     console.log('tmpSVGPath: ', tmpSVGPath);
     var shell = nw.Shell;
@@ -29,9 +30,12 @@ if(ISNW){
         }else{
             return svgs.map((svg,i) => {
                 const fileName = baseName + i+'.'+fileExtension;
-                console.log('fileName: ', fileName);
+                console.log('fileName:- ', fileName);
+                var svgExportPath = path.join(baseDirName, fileName);
+                console.log('svgExportPath: ', svgExportPath);
+                doExportSVG(svg,svgExportPath)
                 // console.log('svg: ', svg);
-                return fileName
+                return svgExportPath
             });
         }
         
@@ -50,8 +54,13 @@ if(ISNW){
     function exportSVG() {
         const filez = pre_exportSVG();
         console.log('filez: ', filez);
-        var tmpSVGPath = path.join(CWD, filez[0]);
-        shell.openItem(tmpSVGPath);
+        filez.forEach(element => {
+            console.log('element: ', element);
+            var tmpSVGPath = path.join(CWD, element);
+            console.log('tmpSVGPath: ', tmpSVGPath);
+            
+            shell.openItem(tmpSVGPath);
+        });
         //["tmp\dihedral.svg"]
     }
 }
