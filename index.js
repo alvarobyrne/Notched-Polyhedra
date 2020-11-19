@@ -43,12 +43,12 @@ if(ISNW){
 }
 let Polyhedron;
 Polyhedron = Dodecahedron;
-Polyhedron = Archimedean.Cuboctahedron;
 Polyhedron = Archimedean.TruncatedTetrahedron;
 Polyhedron = Archimedean.TruncatedCube;
 Polyhedron = Archimedean.TruncatedOctahedron;
 Polyhedron = Archimedean.Rhombicuboctahedron;
 Polyhedron = Archimedean.TruncatedCuboctahedron;
+Polyhedron = Archimedean.Cuboctahedron;
 const sideLength = 40;//mm
 ////////////////////////////////////////////////////////////
 const hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
@@ -165,7 +165,9 @@ let {tw, th} = getSVGsize();
 console.log('th: ', th);
 console.log('tw: ', tw);
 th = to_mm(302)
-tw = to_mm(402)
+th = to_mm(150)
+// tw = to_mm(402)
+// tw = to_mm(200)
 
 bin.setAttribute('id','bin')
 bin.setAttribute('width',tw)
@@ -177,6 +179,16 @@ svg.appendChild(bin)
 
 function setSvgNestClient(){
     var bins = document.getElementById('bins');
-    new SvgNestClient(gui,bins);
+    const nester = new SvgNestClient(gui,bins);
+    nester.addEventListener('nested',onNested)
+    nester.start()
 }
 setSvgNestClient()
+function onNested(params) {
+    // console.log('params: ', params);
+    
+    const files = pre_exportSVG();
+    console.log('files: ', files);
+    //["dihedral0.svg", "dihedral1.svg"]
+}
+//https://www.rapidtables.com/convert/number/degrees-minutes-seconds-to-degrees.html

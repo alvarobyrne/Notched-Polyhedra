@@ -1,5 +1,6 @@
-class SvgNestClient{
+class SvgNestClient extends EventTarget {
     constructor(gui,output){
+        super();
         this.output=output;
         this.efficiency = 0;
         this.placed     = 0;
@@ -25,7 +26,7 @@ class SvgNestClient{
         this.input  = document.querySelector('#' + svgElementId);
         const svgString = this.input.outerHTML;
         const parsedSVG = this.parsedSVG = SvgNest.parsesvg(svgString);
-        console.log('parsedSVG: ', parsedSVG);
+        // console.log('parsedSVG: ', parsedSVG);
     }
     start(){
         this.parsesvg(this.svgElementId);
@@ -34,7 +35,7 @@ class SvgNestClient{
     }
     setBin(binId){
         const bin = this.parsedSVG.querySelector('#' + binId);
-        console.log('bin: ', bin);
+        // console.log('bin: ', bin);
         SvgNest.setbin(bin)
     }
     renderSvg(svglist, efficiency, placed, total){
@@ -56,7 +57,13 @@ class SvgNestClient{
         }
         console.log("stopping")
         SvgNest.stop()
-            
+
+        // create and dispatch the event
+        var event = new CustomEvent("nested", {
+          detail: {
+          }
+        });
+        this.dispatchEvent(event);            
     }
     progress(params) {
         // console.log('params: ', params);
