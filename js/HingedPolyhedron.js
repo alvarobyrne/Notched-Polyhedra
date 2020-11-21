@@ -15,6 +15,7 @@ class HingedPolyhedron extends EventTarget{
         this.s = 6;//mm
         this.gap = 20//pixels;
         this.gap = 3//mm;
+        this.isSingleNotch = true;
         const doUpdate_ = () => this.update()
         const {facesTypes, edges} = Polyhedron;
         const dihedralAngles = {};
@@ -34,15 +35,14 @@ class HingedPolyhedron extends EventTarget{
                 this.dispatchEventUpdate();
             }
         })
-        // console.log('hingesAmounts: ', hingesAmounts);
+        guiFolder.add(this,'isSingleNotch').onChange(doUpdate_)
         const facesSidesAmounts=facesTypes.map(element => {
-            // console.log('element: ', element);
             return element.sides;
             
         });
             
-        this.facesManager  = new FacesManager ({svg, guiFolder, facesTypes,    sideLength})
-        this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts})
+        this.facesManager  = new FacesManager ({svg, guiFolder, facesTypes,    sideLength,isSingleNotch:this.isSingleNotch})
+        this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts,isSingleNotch:this.isSingleNotch})
         this.update();
         this.dispatchEventUpdate();
         this.doUpdateSideLength();
@@ -69,6 +69,8 @@ class HingedPolyhedron extends EventTarget{
     update() {
         const s = to_mm(this.s);
         const g = to_mm(this.gap);
+        this.hingesManager.isSingleNotch=this.isSingleNotch;
+        this.facesManager.isSingleNotch=this.isSingleNotch;
         this.hingesManager.update(s,g);
         const accumulatedHeight = this.hingesManager.accumulatedHeight;
         const bbox = this.hingesManager.clones.getBBox();

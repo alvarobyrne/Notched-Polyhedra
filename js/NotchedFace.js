@@ -1,5 +1,5 @@
 class NotchedFace{
-    constructor(svg,sidesAmount,gui){
+    constructor(svg,sidesAmount,gui,isSingleNotch){
         this.isDebugging = true;
         this.isDebugging = false;
         this.facesDomContainer = document.createElement('div');
@@ -35,7 +35,8 @@ class NotchedFace{
             // this.doFace(this.sides, this.sideLength);
             this.update();
         }
-        this.sides=3;                        
+        this.sides=3;
+        this.isSingleNotch = isSingleNotch;
         this.folderFaceType.add(this,'sides',3,12,1).onChange(this.doUpdate);
         this.folderFaceType.add(this,'facesAmount',1,12,1).onChange(this.doUpdate);
         this.folderFaceType.add(this,'facesColumns',1,12,1).onChange(this.doUpdate);
@@ -98,18 +99,30 @@ class NotchedFace{
         facePath.setAttribute('stroke','red')
         facePath.setAttribute('stroke-width',1)
         facePath.setAttribute('fill','none');
-        let modelPoints = [
-            [0,0],
-            [h00,0],
-            [h00,depth],
-            [h01,depth],
-            [h01,0],
-            [h10,0],
-            [h10,depth],
-            [h11,depth],
-            [h11,0],
-            [l,0]
-        ]
+        let modelPoints = [];
+        if(this.isSingleNotch){
+            modelPoints = [
+                [0,0],
+                [l*0.5-gHalves,0],
+                [l*0.5-gHalves,depth],
+                [l*0.5+gHalves,depth],
+                [l*0.5+gHalves,0],
+                [l,0]
+            ]
+        }else{
+            modelPoints = [
+                [0,0],
+                [h00,0],
+                [h00,depth],
+                [h01,depth],
+                [h01,0],
+                [h10,0],
+                [h10,depth],
+                [h11,depth],
+                [h11,0],
+                [l,0]
+            ]
+        }
         const theta = this.theta;
         const degreePerRadian = Math.PI / 180;
         const outerAngleOffset = 90 + 0.5 * theta;
