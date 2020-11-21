@@ -116,14 +116,10 @@ function setBin() {
     let {tw, th} = getSVGsize();
     console.log('th: ', th);
     console.log('tw: ', tw);
-    th = to_mm(302)
-    th = to_mm(150)
-    tw = to_mm(402)
-    tw = to_mm(200)
+    const margin = 3;
+    th = to_mm(250-margin);
+    tw = to_mm(350-margin);
 
-    th = to_mm(600)
-    tw = to_mm(600)
-    
     bin.setAttribute('id','bin')
     bin.setAttribute('width',tw)
     bin.setAttribute('height',th)
