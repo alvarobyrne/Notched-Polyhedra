@@ -95,9 +95,16 @@ class Hinge{
         cloneTx = r
         cloneTx = 0;
         cloneTx = width + l + 5;
+        console.log('cloneTx: ', cloneTx);
         let cloneTy;
         cloneTy = 0
         cloneTy = h * 2 + 5;
+        if(dihedralDegree<90){
+            const x = width - l;
+            const y = x * Math.cos(dihedral);
+            cloneTx+=y;
+            console.log('cloneTx:-- ', cloneTx);
+        }
         // this.cloneTx = 2 * r + width + l;
         // this.cloneTy = cloneTy;
         // refelection.setAttribute('transform', `rotate(180)`);
