@@ -11,7 +11,6 @@ class FacesManager {
         this.facesClones = document.createElementNS("http://www.w3.org/2000/svg",'g');
         svg.appendChild(this.facesMain)
         this.facesMain.appendChild(this.facesClones)
-        // guiFolder.add(this, 'sideLength', initMinSideLength, initMaxSideLength,0.1).name('side length').onChange(this.updateLength.bind(this));
         const initMinNotchDistance = 0;
         const initMaxNotchDistance = initMaxSideLength/2;
         this.notchDistanceGUI = folder.add(this, 'notchDistance', initMinNotchDistance, initMaxNotchDistance, 0.1).onChange(this.updateNotchDistance.bind(this));
@@ -63,14 +62,8 @@ class FacesManager {
         if(isUpdating){
             this.updateNotchDistance(this.notchDistance);
         }
-        /*
-        faces.forEach(notchedFace => {
-            notchedFace.setNotch(notchDMax);
-            notchedFace.update(depth,gap)
-        });
-        */
         this.removeOverlaps()
-        this.facesClones.setAttribute('transform',`translate(0,${this.rMax*2.5})`)
+        this.facesClones.setAttribute('transform',`translate(0,${this.rMax*3})`)
         this.doClone();
     }
     updateLength(){
@@ -93,12 +86,9 @@ class FacesManager {
             if (r > rMax) {
                 rMax = r;
             }
-            if (i === 0) {
-                posX += r;
-            } else {
-                posX += r * 2;
-            }
-            notchedFace.setPosition(posX, r)
+        })
+        faces.forEach((notchedFace,i) => {
+            notchedFace.setPosition(rMax*(2*i+1), rMax)
         })
         this.rMax=rMax;
     }
@@ -106,8 +96,8 @@ class FacesManager {
         // console.log("================================")
         const faces = this.faces;
         this.facesClones.innerHTML = ""
-        let accumulatedY = 3*this.rMax;//a diameter
-        accumulatedY = 0;//a diameter
+        let accumulatedY = 2*this.rMax;//a diameter
+        // accumulatedY = 0;//a diameter
         faces.forEach(face => {
             /*
             for (const key in face) {

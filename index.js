@@ -30,6 +30,8 @@ gui.width = 435;
 if(ISNW){
     gui.add(this,'exportSVG');
     gui.add(location,'reload');
+    gui.add(this,'setNaturalSize');
+    gui.add(this,'onResize');
     const folderDocs = gui.addFolder('docs');
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/dihedralAngle-hinge-formulae.svg'))}},'f').name('dihedralAngle-hinge-formulae.svg')
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/notch-distance.svg'))}},'f').name('notch-distance.svg')
@@ -83,6 +85,20 @@ function onResize(params) {
     svg.setAttribute("viewBox",viewBoxString)
     svg.removeAttribute("height")
     const h = isWider? innerHeight:innerWidth;
+    console.log('h: ', h);
+    svg.setAttribute("height", `${h}`)
+
+}
+function setNaturalSize() {
+    const proportions = innerWidth / innerHeight;
+    const isWider = proportions>1;
+    // const bbox = svg.getBBox();
+    // const tw = bbox.width + Math.abs(bbox.x);
+    // const th = bbox.height + Math.abs(bbox.y);
+    const viewBoxString = `0 0 ${innerWidth} ${innerHeight}`;
+    svg.setAttribute("viewBox",viewBoxString)
+    svg.removeAttribute("height")
+    const h = isWider? innerHeight:innerWidth;
     svg.setAttribute("height", `${h}`)
 
 }
@@ -104,6 +120,9 @@ function setBin() {
     th = to_mm(150)
     tw = to_mm(402)
     tw = to_mm(200)
+
+    th = to_mm(600)
+    tw = to_mm(600)
     
     bin.setAttribute('id','bin')
     bin.setAttribute('width',tw)
@@ -138,8 +157,10 @@ for (const polyhedronName in Archimedean) {
             svg.innerHTML='';
             setBin();
             gui.removeFolder(hingedPolyhedron.guiFolder)
+            hingedPolyhedron.removeEventListener('update',onResize);
             hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
-            
+            hingedPolyhedron.addEventListener('update',onResize);
+            onResize()
         }},'f').name(polyhedronName)
         
     }
