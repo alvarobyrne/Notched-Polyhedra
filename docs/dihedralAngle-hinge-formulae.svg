@@ -477,11 +477,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1520718"
-     inkscape:cx="631.60895"
-     inkscape:cy="909.33344"
+     inkscape:zoom="4.6082872"
+     inkscape:cx="319.53346"
+     inkscape:cy="343.22872"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g2573"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1920"
@@ -504,7 +504,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1792,17 +1792,6 @@
       <g
          id="g14167"
          transform="translate(-25.421875,-1.058333)">
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82223px;line-height:1.25;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:normal;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-           x="183.34601"
-           y="156.47043"
-           id="text12386"><tspan
-             sodipodi:role="line"
-             id="tspan12384"
-             x="183.34601"
-             y="156.47043"
-             style="fill:#000000;stroke:none;stroke-width:0.264583">w =   + +2</tspan></text>
         <rect
            style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:1.27231;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            id="rect12436"
@@ -1854,6 +1843,17 @@
              x="183.34557"
              y="156.45651"
              style="fill:#ff0000;stroke:none;stroke-width:0.264583">w</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82223px;line-height:1.25;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-variation-settings:normal;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           x="184.93349"
+           y="156.47043"
+           id="text466"><tspan
+             sodipodi:role="line"
+             id="tspan464"
+             x="184.93349"
+             y="156.47043"
+             style="fill:#000000;stroke:none;stroke-width:0.264583"> =   + +2</tspan></text>
       </g>
       <g
          id="g12736"
@@ -2296,12 +2296,12 @@
          x="279.79297"
          y="381.01614"
          id="text2413"
-         transform="matrix(0.26458333,0,0,0.26458333,48.643099,57.163875)"><tspan
+         transform="matrix(0.26458333,0,0,0.26458333,50.759767,57.163875)"><tspan
            sodipodi:role="line"
            id="tspan2411"
            x="279.79297"
            y="381.01614"
-           style="fill:#000000"> =  - </tspan></text>
+           style="fill:#000000">=  -</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:monospace;-inkscape-font-specification:monospace;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:0.999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.999999, 0.999999;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
@@ -2457,11 +2457,11 @@
            x="398.87177"
            y="598.58765"
            id="text1522"
-           transform="scale(0.26458333)"><tspan
+           transform="matrix(0.26458333,0,0,0.26458333,1.5875,0)"><tspan
              sodipodi:role="line"
              id="tspan1520"
              x="398.87177"
-             y="598.58765"> = cos</tspan></text>
+             y="598.58765">= cos</tspan></text>
         <text
            xml:space="preserve"
            style="font-size:2.82223px;line-height:1.25;font-family:monospace;-inkscape-font-specification:monospace;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;fill:#ff6600;stroke:none;stroke-width:0.132292;stop-color:#000000"
