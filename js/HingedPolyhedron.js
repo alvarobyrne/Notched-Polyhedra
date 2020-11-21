@@ -2,10 +2,11 @@
  * s: notch depth: described at docs/dihedralAngle-hinge-formulae.svg- It relates to both the hinge and the face
  * gap: mdf calibre material calibre: described at docs/... if could be mdf or plexiglass
  */
-class HingedPolyhedron {
+class HingedPolyhedron extends EventTarget{
     constructor({svg, gui, sideLength, Polyhedron}) {
-        this.guide= document.createElementNS("http://www.w3.org/2000/svg",'g');
-        svg.appendChild(this.guide)
+        super();
+        this.updateEvent = new Event('update');
+        this.isResizing=true;
         this.sideLength = sideLength;
         const guiFolder = gui.addFolder("HingedPolyhedron");
         this.guiFolder = guiFolder;
@@ -16,23 +17,23 @@ class HingedPolyhedron {
         this.gap = 3//mm;
         const doUpdate_ = () => this.update()
         const {facesTypes, edges} = Polyhedron;
-        console.log('edges: ', edges);
         const dihedralAngles = {};
         const hingesAmounts= {};
         for (const key in edges) {
             if (edges.hasOwnProperty(key)) {
                 const element = edges[key];
-                console.log('element: ', element);
                 dihedralAngles[key]=(element.dihedralAngle)
                 hingesAmounts[key]=(element.amount)
             }
         }
-        console.log('dihedralAngles: ', dihedralAngles);
-        // guiFolder.add(this, 's', 0, sideLength*0.5).name("notch depth (s)").onChange(doUpdate_);
         guiFolder.add(this, 's', 0, 10).name("notch depth (s)[mm]").onChange(doUpdate_);
-        // this.gapGUI = guiFolder.add(this, 'gap', 10, sideLength*0.5,10).name("mdf calibre (g)").onChange(doUpdate_);
         this.gapGUI = guiFolder.add(this, 'gap', 2.5, 9,0.5).name("mdf calibre (g)[mm]").onChange(doUpdate_);
         guiFolder.add(this, 'sideLength', 20, 500).name("side length").onChange(this.doUpdateSideLength.bind(this));
+        guiFolder.add(this,'isResizing').onChange(()=>{
+            if(this.isResizing){
+                this.dispatchEventUpdate();
+            }
+        })
         // console.log('hingesAmounts: ', hingesAmounts);
         const facesSidesAmounts=facesTypes.map(element => {
             // console.log('element: ', element);
@@ -56,11 +57,15 @@ class HingedPolyhedron {
         const h00 = lastNotchDistance - this.gap*0.5;
         // console.log('h00: ', h00);
         facesManager.sideLength = sideLength;
-        facesManager.updateLength()
-        // onResize()
+        facesManager.updateLength();
+        this.dispatchEventUpdate();
+    }
+    dispatchEventUpdate(){
+        if(this.isResizing){
+            this.dispatchEvent(this.updateEvent);
+        }
     }
     update() {
-        this.guide.innerHTML=''
         const s = to_mm(this.s);
         const g = to_mm(this.gap);
         this.hingesManager.update(s,g);
@@ -71,13 +76,7 @@ class HingedPolyhedron {
         const accumulated2 = bbox2.height+Math.abs(bbox2.y);
         const accumulatedY = accumulated1+accumulated2+20
         this.facesManager.update(s,g,true,accumulatedY);
-        // const accumulatedY = this.facesManager.accumulatedY;
-        const line = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-        line.setAttribute('d',`M0,${accumulatedY}H100`);
-        line.setAttribute('stroke','black')
-        line.setAttribute('strokeWidth',2)
-        this.guide.appendChild(line)
-        // onResize()
+        this.dispatchEventUpdate();
     }
     setSideLength(v){
         console.log('v: ', v);

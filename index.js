@@ -46,6 +46,7 @@ Polyhedron = Archimedean.Cuboctahedron;
 const sideLength = 60;//mm
 ////////////////////////////////////////////////////////////
 let hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
+hingedPolyhedron.addEventListener('update',onResize);
 /////////////////////////////////////////
 const testsFolder = gui.addFolder("pseudo-tests");
 // testsFolder.open();
