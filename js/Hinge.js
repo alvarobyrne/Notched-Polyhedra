@@ -31,15 +31,11 @@ class Hinge{
         const dihedralDegree = this.dihedralDegree;
         const dihedral = dihedralDegree * Math.PI / 180;
         const c = Math.PI - dihedral;
-        // var width = this.w * mmppx;
         var width = this.w;
-        // var depth = s * mmppx;
         var depth = s;
         let r = width * Math.cos(c);
         const b = dihedral * 0.5;
-        // const g = gap * mmppx;
         const g = gap;
-        // const d = this.dist * mmppx;
         const d = this.dist;
         const h = g + 2 * d;
         const invTan = 1 / Math.tan(b);
@@ -53,12 +49,9 @@ class Hinge{
         original.innerHTML = ""
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
-        // const gr = document.createElementNS("http://www.w3.org/2000/svg", 'g')
         original.appendChild(triangleHint)
-        // original.appendChild(gr);
         original.appendChild(triangleHint);
         original.appendChild(pieceFullPath);
-        // gr.setAttribute('transform', `translate(${r},0)`)
         triangleHint.setAttribute('d', `M 0 0 h ${l} v ${h} z`);
         let points = [
             [0, 0], 
@@ -90,45 +83,13 @@ class Hinge{
         triangleHint.remove()
         var refelection = pieceFullPath.cloneNode(true);
         original.appendChild(refelection);
-        let cloneTx;
-        cloneTx = 2 * r + width + l;
-        cloneTx = r
-        cloneTx = 0;
-        cloneTx = width + l + 5;
-        console.log('cloneTx: ', cloneTx);
-        let cloneTy;
-        cloneTy = 0
-        cloneTy = h * 2 + 5;
+        let cloneTx = width + l + 5;
+        let cloneTy = h * 2 + 5;
         if(dihedralDegree<90){
             const x = width - l;
             const y = x * Math.cos(dihedral);
             cloneTx+=y;
-            console.log('cloneTx:-- ', cloneTx);
         }
-        // this.cloneTx = 2 * r + width + l;
-        // this.cloneTy = cloneTy;
-        // refelection.setAttribute('transform', `rotate(180)`);
         refelection.setAttribute('transform', `rotate(180) translate(${-cloneTx},${-cloneTy})`);
-        // refelection.setAttribute('transform', `translate(${-cloneTx},${-cloneTy})`);
-
-        // refelection.setAttribute('stroke',`red`);
-        // refelection.setAttribute('transform','rotate(180)');
     }
-    /*
-    doCloneHinges(params) {
-        const margin=this.margin;
-
-        var actualAmount= cloneAmount/2|0;
-        for (let index = 1; index < actualAmount; index++) {
-            const qiece = this.original.cloneNode(true);
-            this.clones.appendChild(qiece);
-            const u = index%columns
-            const v = index/columns|0;
-            // const x = u*(r+w+margin*0.5)+r+margin;
-            const x = u*(cloneTx+margin)+margin;
-            const y = v*(cloneTy+margin)+margin;
-            qiece.setAttribute("transform",`translate(${x},${y})`)
-        }
-    }
-    */
 }
