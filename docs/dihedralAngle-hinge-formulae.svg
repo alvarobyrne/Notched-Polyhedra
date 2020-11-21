@@ -479,9 +479,9 @@
      inkscape:pageshadow="2"
      inkscape:zoom="4.6082872"
      inkscape:cx="319.53346"
-     inkscape:cy="343.22872"
+     inkscape:cy="551.54907"
      inkscape:document-units="mm"
-     inkscape:current-layer="g2573"
+     inkscape:current-layer="g2759"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1920"
@@ -2418,7 +2418,7 @@
          d="M 81.457773,145.65455 V 126.76019"
          id="path1564" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="fill:none;stroke:#ffcc00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-variation-settings:normal;opacity:1;vector-effect:none;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stop-color:#000000;stop-opacity:1"
          d="m 81.457773,130.53157 h 9.080428"
          id="path1580" />
       <text
@@ -2515,6 +2515,17 @@
          height="31.485416"
          x="11.731216"
          y="125.20486" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:monospace;-inkscape-font-specification:monospace;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+         x="382.54636"
+         y="519.31836"
+         id="text2383-7"
+         transform="matrix(0.26458333,0,0,0.26458333,-16.40225,-7.5056625)"><tspan
+           sodipodi:role="line"
+           id="tspan2381-5"
+           x="382.54636"
+           y="519.31836">x</tspan></text>
     </g>
   </g>
 </svg>
