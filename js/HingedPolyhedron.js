@@ -8,6 +8,7 @@ class HingedPolyhedron {
         svg.appendChild(this.guide)
         this.sideLength = sideLength;
         const guiFolder = gui.addFolder("HingedPolyhedron");
+        this.guiFolder = guiFolder;
         guiFolder.open();
         this.s = 20;//pixels
         this.s = 6;//mm
