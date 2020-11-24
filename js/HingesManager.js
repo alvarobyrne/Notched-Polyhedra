@@ -6,7 +6,7 @@ class HingesManager {
         this.w = 100;//pixels
         this.margin=margin;
         this.dist = 3//mm
-        this.columns = 4;
+        this.columns = 5;
         folder.open()
         this.hinges=[];
         this.isSingleNotch=isSingleNotch;
@@ -79,7 +79,7 @@ class HingesManager {
     doCloneHinge(hinge, cloneAmount,accumulatedH) {
         const margin = this.margin;
         const columns = this.columns;
-        const clonesAmount = cloneAmount / 2 | 0;
+        const clonesAmount = cloneAmount;
         const original = hinge.original;
         const bbox = original.getBBox();
         const cloneTx = bbox.width;

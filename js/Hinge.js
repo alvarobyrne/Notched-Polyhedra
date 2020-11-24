@@ -83,16 +83,6 @@ class Hinge{
         pieceFullPath.setAttribute('stroke', 'red')
         if(!isDebugging)
         triangleHint.remove()
-        var refelection = pieceFullPath.cloneNode(true);
-        original.appendChild(refelection);
-        let cloneTx = width + l + 5;
-        let cloneTy = h * 2 + 5;
-        if(dihedralDegree<90){
-            const x = width - l;
-            const y = x * Math.cos(dihedral);
-            cloneTx+=y;
-        }
-        refelection.setAttribute('transform', `rotate(180) translate(${-cloneTx},${-cloneTy})`);
         if(this.isMarkingHinges)
             this.setMarksPath()
     }
