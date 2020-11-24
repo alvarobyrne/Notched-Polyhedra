@@ -1,5 +1,5 @@
 class HingesManager {
-    constructor({svg, guiFolder, dihedralAngles, facesSidesAmounts, hingesAmounts,isSingleNotch}) {
+    constructor({svg, guiFolder, dihedralAngles, facesSidesAmounts, hingesAmounts,isSingleNotch,isMarkingHinges}) {
         this.hingesAmounts = hingesAmounts;
         this.edgesTypes = Object.keys(hingesAmounts);
         const folder = guiFolder.addFolder('HingesManager');
@@ -11,13 +11,13 @@ class HingesManager {
         this.hinges=[];
         this.isSingleNotch=isSingleNotch;
         let i =0
-        const posx = 200;
+        const posx = 200;//TODO: shouldn't be a constat
         for (const key in dihedralAngles) {
             if (dihedralAngles.hasOwnProperty(key)) {
                 // console.log('key: ', key);
                 const angle = dihedralAngles[key];
                 const faceSidesAmount = facesSidesAmounts[i];
-                const hinge = new Hinge(svg, folder, angle, faceSidesAmount, this.w, this.dist,posx*i)
+                const hinge = new Hinge(svg, folder, angle, faceSidesAmount, this.w, this.dist,posx*i,i,isMarkingHinges)
                 this.hinges.push(hinge)
             }
             i++

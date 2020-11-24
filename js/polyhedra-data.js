@@ -69,4 +69,3 @@ const Dodecahedron = {
     volume: (side) => 1 / 4 + (15 + 7 * Math.sqrt(5)) * side * side * side
 };
 const concreteDodecahedronPlanter1Volume = Dodecahedron.volume(3);
-console.log('concreteDodecahedronPlanter1Volume: ', concreteDodecahedronPlanter1Volume);

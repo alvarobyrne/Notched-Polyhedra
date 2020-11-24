@@ -1,5 +1,8 @@
 class Hinge{
-    constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist,posx){
+    constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist,posx,type,isMarkingHinges){
+        this.type=type;
+        this.isMarkingHinges=isMarkingHinges;
+        console.log('isMarkingHinges: ', isMarkingHinges);
         const dihedralDegree = dihedralDegree_;
         this.dihedralDegree = dihedralDegree;
         const doUpdate_ = () => this.update()
@@ -50,7 +53,6 @@ class Hinge{
         var triangleHint = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         var pieceFullPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
         original.appendChild(triangleHint)
-        original.appendChild(triangleHint);
         original.appendChild(pieceFullPath);
         triangleHint.setAttribute('d', `M 0 0 h ${l} v ${h} z`);
         let points = [
@@ -91,5 +93,27 @@ class Hinge{
             cloneTx+=y;
         }
         refelection.setAttribute('transform', `rotate(180) translate(${-cloneTx},${-cloneTy})`);
+        if(this.isMarkingHinges)
+            this.setMarksPath()
+    }
+    setMarksPath(){
+        var marksPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+        var original = this.original;
+        original.appendChild(marksPath);
+        const type = this.type;
+        let marksString=[]
+        const marksSpace = 5;
+        const marksSize = 10;
+        const inity = 2;
+        const initx = 5;
+        for (let index = 0; index <= type; index++) {
+            const x = (index+1) * marksSpace+initx;
+            const markString=`M${x},${inity}L${x},${inity+marksSize}`
+            marksString.push(markString)
+        }
+        marksString=marksString.join(' ')
+        marksPath.setAttribute('stroke', 'blue')
+        marksPath.setAttribute('d', marksString);
+
     }
 }

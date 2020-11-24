@@ -3,7 +3,8 @@
  * gap: mdf calibre material calibre: described at docs/... if could be mdf or plexiglass
  */
 class HingedPolyhedron extends EventTarget{
-    constructor({svg, gui, sideLength, Polyhedron}) {
+    constructor({svg, gui, sideLength, Polyhedron,isMarkingHinges}) {
+        console.log('isMarkingHinges: ', isMarkingHinges);
         super();
         this.updateEvent = new Event('update');
         this.isResizing=true;
@@ -42,7 +43,7 @@ class HingedPolyhedron extends EventTarget{
         });
             
         this.facesManager  = new FacesManager ({svg, guiFolder, facesTypes,    sideLength,isSingleNotch:this.isSingleNotch})
-        this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts,isSingleNotch:this.isSingleNotch})
+        this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts,isSingleNotch:this.isSingleNotch,isMarkingHinges})
         this.update();
         this.dispatchEventUpdate();
         this.doUpdateSideLength();

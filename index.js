@@ -37,6 +37,10 @@ if(ISNW){
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/notch-distance.svg'))}},'f').name('notch-distance.svg')
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
 }
+var isResizing = true;
+var isMarkingHinges = true;
+gui.add(this,'isResizing')
+gui.add(this,'isMarkingHinges')
 let Polyhedron;
 Polyhedron = Dodecahedron;
 Polyhedron = Archimedean.TruncatedTetrahedron;
@@ -47,7 +51,7 @@ Polyhedron = Archimedean.TruncatedCuboctahedron;
 Polyhedron = Archimedean.Cuboctahedron;
 const sideLength = 60;//mm
 ////////////////////////////////////////////////////////////
-let hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
+let hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron,isMarkingHinges});
 hingedPolyhedron.addEventListener('update',onResize);
 /////////////////////////////////////////
 const testsFolder = gui.addFolder("pseudo-tests");
@@ -75,6 +79,7 @@ function to_px(value) {
     return 3.7795*value
 }
 function onResize(params) {
+    if(!isResizing)return
     const proportions = innerWidth / innerHeight;
     const isWider = proportions>1;
     // const bbox = svg.getBBox();
@@ -85,7 +90,7 @@ function onResize(params) {
     svg.setAttribute("viewBox",viewBoxString)
     svg.removeAttribute("height")
     const h = isWider? innerHeight:innerWidth;
-    console.log('h: ', h);
+    // console.log('h: ', h);
     svg.setAttribute("height", `${h}`)
 
 }
@@ -104,6 +109,8 @@ function setNaturalSize() {
 }
 window.addEventListener('resize',onResize)
 onResize()
+isResizing = false;
+setNaturalSize();
 function getSVGsize(params) {
     const bbox = svg.getBBox();
     const tw = bbox.width + Math.abs(bbox.x);
@@ -114,8 +121,8 @@ function setBin() {
     
     const bin = document.createElementNS(SVG_NS, 'rect');
     let {tw, th} = getSVGsize();
-    console.log('th: ', th);
-    console.log('tw: ', tw);
+    // console.log('th: ', th);
+    // console.log('tw: ', tw);
     const margin = 3;
     th = to_mm(250-margin);
     tw = to_mm(350-margin);
@@ -150,15 +157,28 @@ for (const polyhedronName in Archimedean) {
     if (Archimedean.hasOwnProperty(polyhedronName)) {
         const Polyhedron = Archimedean[polyhedronName];
         polyhedraFolder.add({f:()=>{
-            svg.innerHTML='';
-            setBin();
-            gui.removeFolder(hingedPolyhedron.guiFolder)
-            hingedPolyhedron.removeEventListener('update',onResize);
-            hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron});
-            hingedPolyhedron.addEventListener('update',onResize);
-            onResize()
+            pickPolyhedron(Polyhedron);
         }},'f').name(polyhedronName)
         
     }
 }
-console.log('Polyhedron: ', Polyhedron);
+
+function pickPolyhedron(Polyhedron) {
+    svg.innerHTML = '';
+    setBin();
+    gui.removeFolder(hingedPolyhedron.guiFolder);
+    hingedPolyhedron.removeEventListener('update', onResize);
+    hingedPolyhedron = new HingedPolyhedron({ svg, gui, sideLength, Polyhedron ,isMarkingHinges});
+    hingedPolyhedron.addEventListener('update', onResize);
+    onResize();
+}
+const polyhedraNames = Object.keys(Archimedean);
+var polyhedronIndex = 1;
+setInterval(()=>{
+    const polyhedronName = polyhedraNames[polyhedronIndex];
+    console.log('polyhedronName: ', polyhedronName);
+    pickPolyhedron(Archimedean[polyhedronName])
+    polyhedronIndex++
+    if(polyhedronIndex>=polyhedraNames.length)
+        polyhedronIndex=0;
+},2000)
