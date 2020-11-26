@@ -2,11 +2,11 @@ class Hinge{
     constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist,posx,type,isMarkingHinges){
         this.type=type;
         this.isMarkingHinges=isMarkingHinges;
-        console.log('isMarkingHinges: ', isMarkingHinges);
         const dihedralDegree = dihedralDegree_;
         this.dihedralDegree = dihedralDegree;
         const doUpdate_ = () => this.update()
-        gui.add(this,'dihedralDegree',0,150).name(`angle (${faceSidesAmount})`).onChange(doUpdate_);
+        // gui.add(this,'dihedralDegree',0,150).name(`angle (${faceSidesAmount})`).onChange(doUpdate_);
+        // gui.add(this,'isMarkingHinges').name(`marks (${faceSidesAmount})`).onChange(doUpdate_);
         this.w=w;
         this.dist=dist;
         this.air = 5;
@@ -84,26 +84,23 @@ class Hinge{
         if(!isDebugging)
         triangleHint.remove()
         if(this.isMarkingHinges)
-            this.setMarksPath()
+        this.setMarksPath(this.original,this.type)
     }
-    setMarksPath(){
-        var marksPath = document.createElementNS("http://www.w3.org/2000/svg", 'path')
-        var original = this.original;
-        original.appendChild(marksPath);
-        const type = this.type;
-        let marksString=[]
+    setMarksPath(original,type){
         const marksSpace = 5;
         const marksSize = 10;
         const inity = 2;
         const initx = 5;
+        const y2 = inity+marksSize;
         for (let index = 0; index <= type; index++) {
-            const x = (index+1) * marksSpace+initx;
-            const markString=`M${x},${inity}L${x},${inity+marksSize}`
-            marksString.push(markString)
+            var c = document.createElementNS("http://www.w3.org/2000/svg", 'circle')
+            const x0 = (index+1) * (marksSpace+2)+initx;
+            c.setAttribute('cx',x0)
+            c.setAttribute('cy',y2)
+            c.setAttribute('r',marksSpace*0.5)
+            c.setAttribute('fill','none')
+            c.setAttribute('stroke','blue')
+            original.appendChild(c);
         }
-        marksString=marksString.join(' ')
-        marksPath.setAttribute('stroke', 'blue')
-        marksPath.setAttribute('d', marksString);
-
     }
 }

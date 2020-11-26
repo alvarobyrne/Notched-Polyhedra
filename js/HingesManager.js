@@ -18,6 +18,13 @@ class HingesManager {
                 const angle = dihedralAngles[key];
                 const faceSidesAmount = facesSidesAmounts[i];
                 const hinge = new Hinge(svg, folder, angle, faceSidesAmount, this.w, this.dist,posx*i,i,isMarkingHinges)
+                folder.add({hinge,manager:this,facesTypes:key,f:true},'f')
+                    .name(`marks (${key})`)
+                    .onChange(function(value){
+                        const target = this.object;
+                        target.hinge.isMarkingHinges = value;
+                        target.manager.update();
+                    })
                 this.hinges.push(hinge)
             }
             i++

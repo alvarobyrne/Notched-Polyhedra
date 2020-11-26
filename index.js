@@ -40,7 +40,7 @@ if(ISNW){
 var isResizing = true;
 var isMarkingHinges = true;
 gui.add(this,'isResizing')
-gui.add(this,'isMarkingHinges')
+// gui.add(this,'isMarkingHinges')
 let Polyhedron;
 Polyhedron = Dodecahedron;
 Polyhedron = Archimedean.TruncatedTetrahedron;
@@ -149,7 +149,7 @@ function onNested(params) {
     
     // const files = pre_exportSVG();
     // console.log('files: ', files);
-    exportSVG()
+    // exportSVG()
     //["dihedral0.svg", "dihedral1.svg"]
 }
 //https://www.rapidtables.com/convert/number/degrees-minutes-seconds-to-degrees.html
@@ -175,6 +175,7 @@ function pickPolyhedron(Polyhedron) {
 const polyhedraNames = Object.keys(Archimedean);
 var polyhedronIndex = 1;
 setInterval(()=>{
+    return
     const polyhedronName = polyhedraNames[polyhedronIndex];
     console.log('polyhedronName: ', polyhedronName);
     pickPolyhedron(Archimedean[polyhedronName])
