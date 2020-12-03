@@ -1,5 +1,5 @@
 class NotchedFace{
-    constructor(svg,sidesAmount,gui,isSingleNotch){
+    constructor(svg,sidesAmount,isSingleNotch){
         this.isDebugging = true;
         this.isDebugging = false;
         this.facesDomContainer = document.createElement('div');
@@ -27,20 +27,8 @@ class NotchedFace{
         this.faceRadius = -1;
         this.facesAmount = 12;
         this.facesColumns = 4;
-        // this.svgFaces.setAttribute('width','900');
-        // this.svgFaces.setAttribute('height','600');
-        this.folderFaceType = gui.addFolder('NotchedFace '+sidesAmount);
-        // this.folderFaceType.open();
-        this.doUpdate = ()=>{
-            // this.doFace(this.sides, this.sideLength);
-            this.update();
-        }
         this.sides=3;
         this.isSingleNotch = isSingleNotch;
-        this.folderFaceType.add(this,'sides',3,12,1).onChange(this.doUpdate);
-        this.folderFaceType.add(this,'facesAmount',1,12,1).onChange(this.doUpdate);
-        this.folderFaceType.add(this,'facesColumns',1,12,1).onChange(this.doUpdate);
-        // this.folderFaceType.add(this,'sideLength',50,400,0.5).name('side length').onChange(this.doUpdate);
     }
     setForm(sides,length){
         //order matters

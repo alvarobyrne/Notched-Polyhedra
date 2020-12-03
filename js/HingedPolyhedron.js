@@ -36,7 +36,10 @@ class HingedPolyhedron extends EventTarget{
                 this.dispatchEventUpdate();
             }
         })
-        guiFolder.add(this,'isSingleNotch').onChange(doUpdate_)
+        guiFolder.add(this,'isSingleNotch').onChange((value)=>{
+            this.facesManager.setNotchDistanceGuiVisibility(value)
+            this.update()
+        })
         const facesSidesAmounts=facesTypes.map(element => {
             return element.sides;
             
@@ -45,7 +48,6 @@ class HingedPolyhedron extends EventTarget{
         this.facesManager  = new FacesManager ({svg, guiFolder, facesTypes,    sideLength,isSingleNotch:this.isSingleNotch})
         this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts,isSingleNotch:this.isSingleNotch,isMarkingHinges})
         this.update();
-        this.dispatchEventUpdate();
         this.doUpdateSideLength();
     }
     doUpdateSideLength(){

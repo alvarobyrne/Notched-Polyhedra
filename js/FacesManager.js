@@ -12,30 +12,37 @@ class FacesManager {
         svg.appendChild(this.facesMain)
         this.facesMain.appendChild(this.facesClones)
         const initMinNotchDistance = 0;
+        console.log('initMinNotchDistance: ', initMinNotchDistance);
         const initMaxNotchDistance = initMaxSideLength/2;
+        console.log('initMaxNotchDistance: ', initMaxNotchDistance);
         this.posy=0;
         this.isSingleNotch=isSingleNotch;
         this.notchDistanceGUI = folder.add(this, 'notchDistance', initMinNotchDistance, initMaxNotchDistance, 0.1).onChange(this.updateNotchDistance.bind(this));
         this.faces = facesTypes.map(faceType => {
             const numberOfSides = faceType.sides;
-            const notchedFace = new NotchedFace(this.facesMain, numberOfSides, folder,this.isSingleNotch);
+            const notchedFace = new NotchedFace(this.facesMain, numberOfSides,this.isSingleNotch);
             notchedFace.setForm(numberOfSides, sideLength);
             notchedFace.notchD=this.notchDistance;
             const amount = notchedFace.amount = faceType.amount;// no, no, no
             return notchedFace
         });
+        this.setNotchDistanceGuiVisibility(this.isSingleNotch)
     }
     /**
      * 
      * @param {distance of center of notch to vertex} value 
      */
     updateNotchDistance(value){
+        const minC = this.notchDistanceGUI.__min;
+        const maxC = this.notchDistanceGUI.__max;
+        console.log('value: ', minC,value,maxC);
         const faces = this.faces;
         faces.forEach(notchedFace => {
             notchedFace.setNotch(value);
             notchedFace.update(this.depth,this.gap)
         });
-        this.update(this.depth,this.gap,false,this.posy)
+        this.doClone();
+        // this.update(this.depth,this.gap,false,this.posy)
     }
     update(depth,gap,isUpdating=true,posy=0) {
         if(posy>10){
@@ -52,17 +59,20 @@ class FacesManager {
             notchedFace.notchPrecompute(depth,gap)
             notchMinima.push(notchedFace.notchMin)
         });
-        const notchDMax = Math.max.apply(null, notchMinima);
-        this.notchDMax = notchDMax;
+        const notchDGreatestMin = Math.max.apply(null, notchMinima);
+        this.notchDMax = notchDGreatestMin;
         const notchDistance = this.notchDistance;
-        if(notchDistance>notchDMax||notchDistance<notchDMax){
-            this.notchDistance = notchDMax
+        if(notchDistance>notchDGreatestMin||notchDistance<notchDGreatestMin){
+            this.notchDistance = notchDGreatestMin
         }
-        this.notchDistanceGUI.min(notchDMax);
-        this.notchDistanceGUI.max(this.sideLength*0.5-gap*0.5);
+        this.notchDistanceGUI.min(notchDGreatestMin);
+        console.log('notchDMax: ', notchDGreatestMin);
+        const notchDExtreme = this.sideLength * 0.5 - gap * 0.5;
+        console.log('notchDExtreme: ', notchDExtreme);
+        this.notchDistanceGUI.max(notchDExtreme);
         this.notchDistanceGUI.updateDisplay();
         if(isUpdating){
-            this.updateNotchDistance(this.notchDistance);
+            this.updateNotchDistance(this.notchDistance);//faces setNotch & update
         }
         this.removeOverlaps()
         this.facesClones.setAttribute('transform',`translate(0,${this.rMax*3})`)
@@ -120,4 +130,14 @@ class FacesManager {
             }
             this.accumulatedY= accumulatedY;    
         });
-    }}
+    }
+    setNotchDistanceGuiVisibility(value){
+        const notchDistanceGuiDom=this.notchDistanceGUI.domElement
+        if(!value){
+            notchDistanceGuiDom.parentNode.parentNode.style.display=null
+        }else{
+            notchDistanceGuiDom.parentNode.parentNode.style.display="none"
+        }
+
+    }
+}

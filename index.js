@@ -109,8 +109,8 @@ function setNaturalSize() {
 }
 window.addEventListener('resize',onResize)
 onResize()
-isResizing = false;
-setNaturalSize();
+// isResizing = false;
+// setNaturalSize();
 function getSVGsize(params) {
     const bbox = svg.getBBox();
     const tw = bbox.width + Math.abs(bbox.x);
