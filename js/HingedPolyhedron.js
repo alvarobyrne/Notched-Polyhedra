@@ -47,6 +47,7 @@ class HingedPolyhedron extends EventTarget{
             
         this.facesManager  = new FacesManager ({svg, guiFolder, facesTypes,    sideLength,isSingleNotch:this.isSingleNotch})
         this.hingesManager = new HingesManager({svg, guiFolder, dihedralAngles,facesSidesAmounts,hingesAmounts,isSingleNotch:this.isSingleNotch,isMarkingHinges})
+        this.hingesManager.addEventListener('updateDist',this.update.bind(this) )
         this.update();
         this.doUpdateSideLength();
     }

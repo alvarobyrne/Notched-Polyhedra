@@ -1,5 +1,6 @@
-class HingesManager {
+class HingesManager extends EventTarget{
     constructor({svg, guiFolder, dihedralAngles, facesSidesAmounts, hingesAmounts,isSingleNotch,isMarkingHinges}) {
+        super();
         this.hingesAmounts = hingesAmounts;
         this.edgesTypes = Object.keys(hingesAmounts);
         const folder = guiFolder.addFolder('HingesManager');
@@ -31,9 +32,13 @@ class HingesManager {
             i++
         }
         folder.add(this, 'air', 0.1, 5,0.1).name("hinge air, (t)[mm]").onChange(this.updateSize.bind(this))
-        folder.add(this, 'dist', 2.5, 10).onChange(this.updateSize.bind(this))
+        folder.add(this, 'dist', 2.5, 10).onChange(()=>{
+            this.dispatchEvent(this.updateDistEvent);
+            this.updateSize()
+        })
         this.clones = document.createElementNS("http://www.w3.org/2000/svg",'g')
         svg.appendChild(this.clones);
+        this.updateDistEvent = new Event('updateDist');
         this.updateSize()
     }
     updateSize() {
