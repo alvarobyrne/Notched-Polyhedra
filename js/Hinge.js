@@ -1,5 +1,5 @@
 class Hinge{
-    constructor(svg,gui,dihedralDegree_,faceSidesAmount,w,dist,posx,type,isMarkingHinges){
+    constructor(svg,gui,dihedralDegree_,faceSidesAmount,dist,posx,type,isMarkingHinges){
         this.type=type;
         this.isMarkingHinges=isMarkingHinges;
         const dihedralDegree = dihedralDegree_;
@@ -7,9 +7,9 @@ class Hinge{
         const doUpdate_ = () => this.update()
         // gui.add(this,'dihedralDegree',0,150).name(`angle (${faceSidesAmount})`).onChange(doUpdate_);
         // gui.add(this,'isMarkingHinges').name(`marks (${faceSidesAmount})`).onChange(doUpdate_);
-        this.w=w;
+        this.w=0;
         this.dist=dist;
-        this.air = 5;
+        this.air = 0;
         this.original = document.createElementNS("http://www.w3.org/2000/svg",'g')
         var original = this.original;
         const margin=100;

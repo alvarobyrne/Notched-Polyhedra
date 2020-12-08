@@ -7,6 +7,7 @@ class HingesManager {
         this.margin=margin;
         this.dist = 3//mm
         this.columns = 5;
+        this.air = 5;
         folder.open()
         this.hinges=[];
         this.isSingleNotch=isSingleNotch;
@@ -17,7 +18,7 @@ class HingesManager {
                 // console.log('key: ', key);
                 const angle = dihedralAngles[key];
                 const faceSidesAmount = facesSidesAmounts[i];
-                const hinge = new Hinge(svg, folder, angle, faceSidesAmount, this.w, this.dist,posx*i,i,isMarkingHinges)
+                const hinge = new Hinge(svg, folder, angle, faceSidesAmount, this.dist,posx*i,i,isMarkingHinges)
                 folder.add({hinge,manager:this,facesTypes:key,f:true},'f')
                     .name(`marks (${key})`)
                     .onChange(function(value){
@@ -29,7 +30,7 @@ class HingesManager {
             }
             i++
         }
-        folder.add(this, 'w', 5, 20).name("hinge size, (w)[mm]").onChange(this.updateSize.bind(this))
+        folder.add(this, 'air', 0.1, 5,0.1).name("hinge air, (t)[mm]").onChange(this.updateSize.bind(this))
         folder.add(this, 'dist', 2.5, 10).onChange(this.updateSize.bind(this))
         this.clones = document.createElementNS("http://www.w3.org/2000/svg",'g')
         svg.appendChild(this.clones);
@@ -39,6 +40,7 @@ class HingesManager {
         this.hinges.forEach(hinge => {
             hinge.w = to_mm(this.w);
             hinge.dist = to_mm(this.dist);
+            hinge.air = to_mm(this.air);
         });
         this.update(this.s, this.g);
     }
