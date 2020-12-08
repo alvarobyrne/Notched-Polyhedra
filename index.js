@@ -24,22 +24,34 @@ var cloneTy = -1;
 ////////////////////////
 
 const gui = new dat.GUI()
+const fileFolder = gui.addFolder('File');
+const viewFolder = gui.addFolder('View');
 const polyhedraFolder = gui.addFolder('Polyhedra');
 polyhedraFolder.open()
 gui.width = 435;
 if(ISNW){
-    gui.add(this,'exportSVG');
-    gui.add(location,'reload');
-    gui.add(this,'setNaturalSize');
-    gui.add(this,'onResize');
+    fileFolder.add(this,'exportSVG');
+    fileFolder.add(location,'reload');
     const folderDocs = gui.addFolder('docs');
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/dihedralAngle-hinge-formulae.svg'))}},'f').name('dihedralAngle-hinge-formulae.svg')
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/notch-distance.svg'))}},'f').name('notch-distance.svg')
     folderDocs.add({f(){shell.openItem(path.join(CWD,'./docs/side.svg'))}},'f').name('side.svg')
 }
+viewFolder.add(this,'setNaturalSize').name("1:1");
+viewFolder.add(this,'onResize').name("fit to view");
 var isResizing = true;
 var isMarkingHinges = true;
-gui.add(this,'isResizing')
+viewFolder.add(this,'isResizing').name('is fitting').onChange((value)=>{
+    console.log('value: ', value);
+    if(!value){
+        setNaturalSize()
+    }else{
+        onResize()
+    }
+})
+const valueController = viewFolder.add({f:400},'f',300,1000,1).onChange((value)=>{
+    svg.setAttribute("height", `${value}`)
+})
 // gui.add(this,'isMarkingHinges')
 let Polyhedron;
 Polyhedron = Dodecahedron;
@@ -92,6 +104,7 @@ function onResize(params) {
     const h = isWider? innerHeight:innerWidth;
     // console.log('h: ', h);
     svg.setAttribute("height", `${h}`)
+    valueController.setValue(h)
 
 }
 function setNaturalSize() {
@@ -183,3 +196,14 @@ setInterval(()=>{
     if(polyhedronIndex>=polyhedraNames.length)
         polyhedronIndex=0;
 },2000)
+function closeAllGuiFolders() {
+    const folders = gui.__folders;
+    for (const folderKey in folders) {
+        if (folders.hasOwnProperty(folderKey)) {
+            const folder = folders[folderKey];
+            folder.close()
+            
+        }
+    }
+}
+closeAllGuiFolders()
