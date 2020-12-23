@@ -66,7 +66,9 @@ const Platonic = {
         facesTypes: [
             { sides: 5, amount: 12 }
         ],
-        dihedralAngles: [116.57],
+        edges:{
+            "5-5": { amount: 30, dihedralAngle: 116.57 }
+        },
         volume: (side) => 1 / 4 + (15 + 7 * Math.sqrt(5)) * side * side * side
     }
 };
