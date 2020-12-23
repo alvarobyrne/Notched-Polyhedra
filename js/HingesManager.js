@@ -106,7 +106,7 @@ class HingesManager extends EventTarget{
             // const x = u*(r+w+margin*0.5)+r+margin;
             const x = u * (cloneTx + margin) + margin;
             const y = v * (cloneTy + margin) + margin;
-            const accumulatedHeight = accumulatedH+y + h + 10;
+            const accumulatedHeight = accumulatedH+y  + 10;
             this.accumulatedHeight = accumulatedHeight; 
             qiece.setAttribute("transform", `translate(${x},${accumulatedHeight})`)
         }

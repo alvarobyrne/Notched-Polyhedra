@@ -13,7 +13,6 @@ document.body.appendChild(im2)
 const margin=10;
 const mmppx=3.7796;
 // const MMPPX=3.7796;
-var h = -1;
 var faceRadius = -1;
 var gr;
 // svg.setAttribute('width','900')
@@ -27,6 +26,8 @@ const gui = new dat.GUI()
 const fileFolder = gui.addFolder('File');
 const viewFolder = gui.addFolder('View');
 const polyhedraFolder = gui.addFolder('Polyhedra');
+const ArchimedeanFolder = polyhedraFolder.addFolder('Archimedean');
+const PlatonicFolder = polyhedraFolder.addFolder('Platonic');
 polyhedraFolder.open()
 gui.width = 435;
 if(ISNW){
@@ -169,7 +170,16 @@ function onNested(params) {
 for (const polyhedronName in Archimedean) {
     if (Archimedean.hasOwnProperty(polyhedronName)) {
         const Polyhedron = Archimedean[polyhedronName];
-        polyhedraFolder.add({f:()=>{
+        ArchimedeanFolder.add({f:()=>{
+            pickPolyhedron(Polyhedron);
+        }},'f').name(polyhedronName)
+        
+    }
+}
+for (const polyhedronName in Platonic) {
+    if (Platonic.hasOwnProperty(polyhedronName)) {
+        const Polyhedron = Platonic[polyhedronName];
+        PlatonicFolder.add({f:()=>{
             pickPolyhedron(Polyhedron);
         }},'f').name(polyhedronName)
         
@@ -206,4 +216,4 @@ function closeAllGuiFolders() {
         }
     }
 }
-closeAllGuiFolders()
+// closeAllGuiFolders()
