@@ -54,7 +54,7 @@ const valueController = viewFolder.add({f:400},'f',300,1000,1).onChange((value)=
 })
 // gui.add(this,'isMarkingHinges')
 let Polyhedron;
-Polyhedron = Dodecahedron;
+Polyhedron = Platonic.Dodecahedron;
 Polyhedron = Archimedean.TruncatedTetrahedron;
 Polyhedron = Archimedean.TruncatedCube;
 Polyhedron = Archimedean.TruncatedOctahedron;
