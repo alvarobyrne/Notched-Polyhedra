@@ -70,4 +70,3 @@ const Platonic = {
         volume: (side) => 1 / 4 + (15 + 7 * Math.sqrt(5)) * side * side * side
     }
 };
-const concreteDodecahedronPlanter1Volume = Dodecahedron.volume(3);
