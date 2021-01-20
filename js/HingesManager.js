@@ -6,9 +6,9 @@ class HingesManager extends EventTarget{
         const folder = guiFolder.addFolder('HingesManager');
         this.w = 100;//pixels
         this.margin=margin;
-        this.dist = 3//mm
+        this.dist = 2.5//mm
         this.columns = 5;
-        this.air = 5;
+        this.air = 0.2;
         folder.open()
         this.hinges=[];
         this.isSingleNotch=isSingleNotch;

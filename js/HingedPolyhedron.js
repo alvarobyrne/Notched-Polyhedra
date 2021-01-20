@@ -13,10 +13,11 @@ class HingedPolyhedron extends EventTarget{
         this.guiFolder = guiFolder;
         guiFolder.open();
         this.s = 20;//pixels
-        this.s = 6;//mm
+        this.s = 4;//mm
         this.gap = 20//pixels;
-        this.gap = 3//mm;
+        this.gap = 2.8//mm;
         this.isSingleNotch = true;
+        this.isSingleNotch = false;
         const doUpdate_ = () => this.update()
         const {facesTypes, edges} = Polyhedron;
         const dihedralAngles = {};
@@ -29,7 +30,7 @@ class HingedPolyhedron extends EventTarget{
             }
         }
         guiFolder.add(this, 's', 0, 10).name("notch depth (s)[mm]").onChange(doUpdate_);
-        this.gapGUI = guiFolder.add(this, 'gap', 2.5, 9,0.5).name("mdf calibre (g)[mm]").onChange(doUpdate_);
+        this.gapGUI = guiFolder.add(this, 'gap', 2.5, 9,0.1).name("mdf calibre (g)[mm]").onChange(doUpdate_);
         guiFolder.add(this, 'sideLength', 20, 500).name("side length").onChange(this.doUpdateSideLength.bind(this));
         guiFolder.add(this,'isResizing').onChange(()=>{
             if(this.isResizing){

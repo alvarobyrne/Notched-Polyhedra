@@ -41,7 +41,9 @@ if(ISNW){
 viewFolder.add(this,'setNaturalSize').name("1:1");
 viewFolder.add(this,'onResize').name("fit to view");
 var isResizing = true;
-var isMarkingHinges = true;
+var isMarkingHinges;
+isMarkingHinges = true;
+isMarkingHinges = false;
 viewFolder.add(this,'isResizing').name('is fitting').onChange((value)=>{
     console.log('value: ', value);
     if(!value){
@@ -55,13 +57,13 @@ const valueController = viewFolder.add({f:400},'f',300,1000,1).onChange((value)=
 })
 // gui.add(this,'isMarkingHinges')
 let Polyhedron;
-Polyhedron = Platonic.Dodecahedron;
 Polyhedron = Archimedean.TruncatedTetrahedron;
 Polyhedron = Archimedean.TruncatedCube;
 Polyhedron = Archimedean.TruncatedOctahedron;
 Polyhedron = Archimedean.Rhombicuboctahedron;
 Polyhedron = Archimedean.TruncatedCuboctahedron;
 Polyhedron = Archimedean.Cuboctahedron;
+Polyhedron = Platonic.Dodecahedron;
 const sideLength = 60;//mm
 ////////////////////////////////////////////////////////////
 let hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron,isMarkingHinges});
@@ -78,6 +80,9 @@ testsFolder.add({f:function () {
 testsFolder.add({f:function () {
     location.href = "pseudo-tests/notched-face-test.html"
 }},"f").name("notched-face-test.html")
+testsFolder.add({f:function () {
+    location.href = "pseudo-tests/popup-dodecahedron.html"
+}},"f").name("popup dodecahedron")
 /////////////////////////////////////////
 
 function doUpdate(params) {
@@ -216,4 +221,4 @@ function closeAllGuiFolders() {
         }
     }
 }
-// closeAllGuiFolders()
+closeAllGuiFolders()
