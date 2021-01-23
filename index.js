@@ -64,6 +64,7 @@ Polyhedron = Archimedean.Rhombicuboctahedron;
 Polyhedron = Archimedean.TruncatedCuboctahedron;
 Polyhedron = Archimedean.Cuboctahedron;
 Polyhedron = Platonic.Dodecahedron;
+Polyhedron = Platonic.Icosahedron;
 const sideLength = 60;//mm
 ////////////////////////////////////////////////////////////
 let hingedPolyhedron = new HingedPolyhedron({svg, gui, sideLength, Polyhedron,isMarkingHinges});

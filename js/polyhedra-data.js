@@ -70,5 +70,13 @@ const Platonic = {
             "5-5": { amount: 30, dihedralAngle: 116.57 }
         },
         volume: (side) => 1 / 4 + (15 + 7 * Math.sqrt(5)) * side * side * side
+    },
+    Icosahedron: {
+        facesTypes: [
+            { sides: 3, amount: 20 }
+        ],
+        edges:{
+            "3-3": { amount: 30, dihedralAngle: 138.19 }
+        }
     }
 };
